@@ -1,0 +1,2503 @@
+Questions,Answers,Context,Types,SQL
+How many World Championships Silver Medals did Nouran Gohar win ?,2,"Nouran Gohar
+
+Personal Information
+Birth Date
+1997-9-30	
+
+Birth Place
+Egypt	
+
+Height
+167 cm	
+
+Weight
+59  kg	
+
+Coach
+Omar Abd El Aziz, Karim Darwish	
+
+Years Active
+
+Date Of Highest Ranking
+October 2020	
+
+Country Representing: EGY
+World Championships
+Singles 	MedalGold | 2024 | Cairo, MedalSilver | 2022 | Cairo, MedalSilver | 2023 | Chicago, MedalBronze | 2015 | Kuala Lumpur, MedalBronze | 2016 | El Gouna
+
+World Team Championships
+Team	MedalGold | 2016 | Issy, MedalGold | 2018 | Dalian, MedalGold | 2022 | Cairo
+
+",1,"SELECT COUNT(*) AS silver_medal_count
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = 'Nouran Gohar'
+  AND t.name = 'World Championships'
+  AND m.type = 'MedalSilver';"
+List all the formats in which Rossella Fiamingo has won medals in ?,"Individual, Team","Rossella Fiamingo
+
+Personal Information
+Birth Date
+1991-7-14	
+
+Birth Place
+Catania	
+
+Height
+1.68 m	
+
+Weight
+56  kg	
+
+Coach
+Sandro Cuomo	
+Gianni Sperlinga	
+
+Country Representing: ITA
+Olympic Games
+Individual	MedalSilver | 2016 | Rio de Janeiro
+Team	MedalBronze | 2020 | Tokyo
+
+World Championships
+Individual	MedalGold | 2014 | Kazan, MedalGold | 2015 | Moscow, MedalBronze | 2022 | Cairo
+Team	MedalSilver | 2022 | Cairo, MedalSilver | 2023 | Milan, MedalBronze | 2011 | Catania, MedalBronze | 2014 | Kazan, MedalBronze | 2019 | Budapest
+
+European Games
+Team	MedalBronze | 2023 | Kraków
+
+European Championships
+Team	MedalGold | 2024 | Basel, MedalSilver | 2022 | Antalya, MedalBronze | 2014 | Strasbourg, MedalBronze | 2015 | Montreux, MedalBronze | 2019 | Düsseldorf, MedalBronze | 2023 | Kraków
+Individual	MedalSilver | 2015 | Montreux, MedalSilver | 2022 | Antalya
+
+",3,"SELECT DISTINCT f.name AS format_name
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = 'Rossella Fiamingo';"
+In which format(s) is Zac Stubblety-Cook most succesfull ?,200 m breaststroke,"Zac Stubblety-Cook
+
+Personal Information
+Birth Date
+1999-1-4	
+
+Birth Place
+Brisbane	
+
+Height
+181 cm	
+
+Weight
+72  kg	
+
+Country Representing: AUS
+Olympic Games
+200 m breaststroke	MedalGold | 2020 | SOG
+4x100 m mixed medley	MedalBronze | 2020 | Tokyo
+
+World Championships (LC)
+200 m breaststroke	MedalGold | 2022 | Budapest, MedalSilver | 2023 | Fukuoka
+4x100 m mixed medley	MedalSilver | 2022 | Budapest, MedalSilver | 2023 | Fukuoka
+4x100 m medley	MedalBronze | 2023 | Fukuoka
+
+Commonwealth Games
+200 m breaststroke	MedalGold | 2022 | Birmingham
+4x100 m mixed medley	MedalGold | 2022 | Birmingham
+100 m breaststroke	MedalSilver | 2022 | Birmingham
+4x100 m medley	MedalSilver | 2022 | Birmingham
+
+Pan Pacific Championships
+200 m breaststroke	MedalSilver | 2018 | Tokyo
+
+World Junior Championships
+200 m breaststroke	MedalBronze | 2017 | Indianapolis
+4x100 m medley	MedalBronze | 2017 | Indianapolis
+
+",5,"SELECT f.name AS format_name
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = 'Zac Stubblety-Cook'
+GROUP BY f.name
+HAVING COUNT(m.medal_id) = (
+    SELECT MAX(medal_count)
+    FROM (
+        SELECT COUNT(m.medal_id) AS medal_count
+        FROM Medal m
+        JOIN Format f ON m.format_id = f.format_id
+        JOIN Tournament t ON f.tournament_id = t.tournament_id
+        JOIN Athlete a ON t.athlete_id = a.athlete_id
+        WHERE a.name = 'Zac Stubblety-Cook'
+        GROUP BY f.name
+    ) AS medal_counts
+);"
+How many International Silver Medals did Liam Pitchford win throughout his/her career?,5,"Liam Pitchford
+
+Personal Information
+Birth Date
+1993-7-12	
+
+Birth Place
+Chesterfield, Derbyshire	
+
+Height
+
+Weight
+70 kg	
+
+Country Representing: ENG
+World Championships
+Team	MedalBronze | 2016 | Kuala Lumpur
+
+World Cup
+Team	MedalBronze | 2018 | London
+
+Commonwealth Games
+Men's doubles	MedalGold | 2018 | Gold Coast, MedalGold | 2022 | Birmingham, MedalBronze | 2010 | Delhi
+Team	MedalSilver | 2010 | Delhi, MedalSilver | 2014 | Glasgow, MedalBronze | 2018 | Gold Coast
+Mixed doubles	MedalSilver | 2014 | Glasgow, MedalSilver | 2018 | Gold Coast
+Men's singles	MedalSilver | 2022 | Birmingham, MedalBronze | 2014 | Glasgow
+Men's team	MedalBronze | 2022 | Birmingham
+
+Europe Top
+Singles	MedalBronze | 2023 | Montreux
+
+",13,"SELECT COUNT(*) AS silver_medal_count
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = 'Liam Pitchford'
+  AND m.type = 'MedalSilver';"
+How many times has Douglas Brose won medals in Pan American Games ?,5,"Douglas Brose
+
+Personal Information
+Birth Date
+1985-12-11	
+
+Birth Place
+	
+
+Years Active
+
+Height
+
+Weight
+60  kg	
+
+Coach
+
+Country Representing: BRA
+World Championships
+Kumite 60 kg 	MedalGold | 2010 | Belgrade, MedalGold | 2014 | Bremen, MedalSilver | 2012 | Paris, MedalBronze | 2008 | Tokyo
+Kumite 60 kg	MedalGold | 2021 | Dubai
+
+World Games
+Kumite 60 kg 	MedalGold | 2009 | Kaohsiung, MedalSilver | 2013 | Cali
+Kumite 60 kg	MedalSilver | 2022 | Birmingham
+
+World Combat Games
+Kumite 60 kg 	MedalBronze | 2013 | St
+
+Pan American Games
+Kumite 60 kg	MedalGold | 2015 | Toronto
+Kumite 60 kg 	MedalSilver | 2019 | Lima, MedalBronze | 2007 | Rio de Janeiro, MedalBronze | 2011 | Guadalajara, MedalBronze | 2023 | Santiago
+
+Pan American Championship
+Kumite 60 kg 	MedalGold | 2011 | Guadalajara, MedalGold | 2014 | Lima, MedalGold | 2015 | Toronto, MedalGold | 2016 | Rio, MedalGold | 2017 | Curaçao, MedalGold | 2019 | Panamá, MedalGold | 2021 | Punta del Este, MedalGold | 2022 | Curaçao, MedalBronze | 2023 | Costa Rica
+
+South American Games
+Team kumite 	MedalGold | 2010 | Medellín
+Kumite 60 kg 	MedalGold | 2014 | Santiago, MedalGold | 2022 | Asunción
+
+",14,"SELECT COUNT(*) AS medal_count
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = 'Douglas Brose'
+  AND t.name = 'Pan American Games';"
+Which city did Carolina Marín win his/her first International Bronze Medals ?,Taipei,"Carolina Marín
+
+Personal Information
+Birth Date
+1993-6-15	
+
+Birth Place
+Huelva	
+
+Height
+1.72 m	
+
+Weight
+65  kg	
+
+Years Active
+2009-present	
+
+Handedness
+Left	
+
+Coach
+Fernando Rivas	
+
+Career Record
+487 wins, 139 losses	
+
+Date Of Highest Ranking
+11 June 2015	
+
+Country Representing: ESP
+Olympic Games
+Women's singles	MedalGold | 2016 | Rio de Janeiro
+
+World Championships
+Women's singles	MedalGold | 2014 | Copenhagen, MedalGold | 2015 | Jakarta, MedalGold | 2018 | Nanjing, MedalSilver | 2023 | Copenhagen
+
+European Games
+Women's singles	MedalGold | 2023 | Kraków
+
+European Championships
+Women's singles 	MedalGold | 2014 | Kazan, MedalGold | 2016 | La Roche, MedalGold | 2017 | Kolding, MedalGold | 2018 | Huelva, MedalGold | 2021 | Kyiv, MedalGold | 2022 | Madrid, MedalGold | 2024 | Saarbrücken
+
+European Women
+Women's team 	MedalSilver | 2024 | Łódź, MedalBronze | 2016 | Kazan, MedalBronze | 2018 | Kazan
+
+World Junior Championships
+Girls' singles 	MedalBronze | 2011 | Taipei
+
+European Junior Championships
+Girls' singles 	MedalGold | 2011 | Vantaa, MedalSilver | 2009 | Milan
+
+",19,"SELECT DISTINCT m.location
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = 'Carolina Marín'
+  AND m.type = 'MedalBronze'
+  AND m.year = (
+      SELECT MIN(m2.year)
+      FROM Medal m2
+      JOIN Format f2 ON m2.format_id = f2.format_id
+      JOIN Tournament t2 ON f2.tournament_id = t2.tournament_id
+      JOIN Athlete a2 ON t2.athlete_id = a2.athlete_id
+      WHERE a2.name = 'Carolina Marín'
+        AND m2.type = 'MedalBronze'
+  );"
+Which tournament(s) has Angelo Crescenzo won the most Bronze Medals in ?,"World Championships 2023, World Games 2022, European Games 2019, European Games 2023, European Championships 2017","Angelo Crescenzo
+
+Personal Information
+Birth Date
+1993-08-05	
+
+Birth Place
+Sarno	
+
+Years Active
+
+Height
+
+Weight
+60  kg	
+
+Coach
+	
+
+Country Representing: ITA
+World Championships
+60 kg	MedalGold | 2018 | Madrid, MedalSilver | 2021 | Dubai, MedalBronze | 2023 | Budapest
+
+World Games
+60 kg	MedalBronze | 2022 | Birmingham
+
+European Games
+60 kg	MedalBronze | 2019 | Minsk, MedalBronze | 2023 | Kraków
+
+European Championships
+60 kg	MedalGold | 2023 | Guadalajara, MedalSilver | 2018 | Novi Sad, MedalSilver | 2019 | Guadalajara, MedalSilver | 2022 | Gaziantep, MedalBronze | 2017 | İzmit
+Team kumite	MedalGold | 2024 | Zadar
+
+",21,"SELECT t.name AS tournament_name, m.year
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = 'Angelo Crescenzo'
+  AND m.type = 'MedalBronze'
+GROUP BY t.name, m.year
+HAVING COUNT(m.medal_id) = (
+    SELECT MAX(bronze_medal_count)
+    FROM (
+        SELECT COUNT(m2.medal_id) AS bronze_medal_count
+        FROM Medal m2
+        JOIN Format f2 ON m2.format_id = f2.format_id
+        JOIN Tournament t2 ON f2.tournament_id = t2.tournament_id
+        JOIN Athlete a2 ON t2.athlete_id = a2.athlete_id
+        WHERE a2.name = 'Angelo Crescenzo'
+          AND m2.type = 'MedalBronze'
+        GROUP BY t2.name, m2.year
+    ) AS medal_counts
+);
+"
+Which tournament(s) has Zhang Jike won the most Medals in ?,"Olympic Games 2012, Olympic Games 2016, World Championships 2009, World Championships 2011, World Championships 2015, World Cup 2010, Asian Games 2010, Asian Games 2014, Asian Championships 2009, Asian Championships 2011","Zhang Jike
+
+Personal Information
+Birth Date
+1988-2-16	
+
+Birth Place
+Qingdao	
+
+Height
+1.78 m	
+
+Weight
+73  kg	
+
+Country Representing: CHN
+Olympic Games
+Singles	MedalGold | 2012 | London, MedalSilver | 2016 | Rio de Janeiro
+Team	MedalGold | 2012 | London, MedalGold | 2016 | Rio de Janeiro
+
+World Championships
+Doubles	MedalBronze | 2009 | Yokohama, MedalBronze | 2011 | Rotterdam, MedalGold | 2015 | Suzhou
+Mixed doubles	MedalSilver | 2009 | Yokohama
+Team 	MedalGold | 2010 | Moscow
+Singles	MedalGold | 2011 | Rotterdam, MedalGold | 2013 | Paris, MedalBronze | 2015 | Suzhou
+Team	MedalGold | 2012 | Dortmund, MedalGold | 2014 | Tokyo, MedalGold | 2016 | Kuala Lumpur
+
+World Cup
+Team 	MedalGold | 2009 | Linz, MedalGold | 2010 | Dubai, MedalGold | 2013 | Guangzhou, MedalGold | 2015 | Dubai
+Singles 	MedalSilver | 2010 | Magdeburg, MedalGold | 2011 | Paris, MedalGold | 2014 | Düsseldorf
+
+Asian Games
+Doubles	MedalGold | 2010 | Guangzhou, MedalGold | 2014 | Incheon
+Team	MedalGold | 2010 | Guangzhou, MedalGold | 2014 | Incheon
+
+Asian Championships
+Singles 	MedalSilver | 2009 | Lucknow, MedalSilver | 2011 | Macau
+Team 	MedalGold | 2009 | Lucknow, MedalGold | 2011 | Macau, MedalGold | 2013 | Busan, MedalGold | 2015 | Pattaya
+
+",22,"WITH medal_counts AS (
+    SELECT t.name AS tournament_name, m.year, COUNT(m.medal_id) AS total_medal_count
+    FROM Medal m
+    JOIN Format f ON m.format_id = f.format_id
+    JOIN Tournament t ON f.tournament_id = t.tournament_id
+    JOIN Athlete a ON t.athlete_id = a.athlete_id
+    WHERE a.name = 'Zhang Jike'
+    GROUP BY t.name, m.year
+)
+SELECT tournament_name, year
+FROM medal_counts
+WHERE total_medal_count = (
+    SELECT MAX(total_medal_count)
+    FROM medal_counts
+);"
+How many medals did Darrell Pace win in the Team Pan American Games ?,3,"Darrell Pace
+
+Personal Information
+Birth Date
+1956-10-23	
+
+Birth Place
+Cincinnati, Ohio	
+
+Height
+
+Weight
+141  lb	
+
+Country Representing: USA
+Olympic Games
+Individual	MedalGold | 1976 | Montreal, MedalGold | 1984 | Los Angeles
+Team	MedalSilver | 1988 | Seoul
+
+Pan American Games
+Team	MedalGold | 1979 | San Juan, MedalGold | 1983 | Caracas, MedalGold | 1987 | Indianapolis
+Individual	MedalGold | 1983 | Caracas, MedalGold | 1991 | Havana, MedalSilver | 1979 | San Juan, MedalBronze | 1987 | Indianapolis
+Individual 	MedalGold | 1991 | Havana
+
+",27,"SELECT COUNT(m.medal_id) AS total_medals
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = 'Darrell Pace'
+  AND t.name = 'Pan American Games'
+  AND f.name LIKE '%Team%';"
+In which year did Denise Parker win his/her first Gold Medals in the Team Pan American Games?,1987,"Denise Parker
+
+Personal Information
+Birth Date
+
+Birth Place
+Salt Lake City	
+
+Country Representing: USA
+Olympic Games
+Team	MedalBronze | 1988 | Seoul
+
+Pan American Games
+Individual	MedalGold | 1987 | Indianapolis, MedalGold | 1991 | Havana
+Team	MedalGold | 1987 | Indianapolis, MedalGold | 1991 | Havana, MedalGold | 1999 | Winnipeg
+
+",30,"SELECT MIN(m.year) AS first_gold_medal_year
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = 'Denise Parker'
+  AND m.type = 'MedalGold'
+  AND t.name = 'Pan American Games'
+  AND f.name LIKE '%Team%';"
+Has Rubén Limardo ever won a Bronze Medals in the Olympic Games?,No,"Rubén Limardo
+
+Personal Information
+Birth Date
+1985-8-3	
+
+Birth Place
+
+Height
+175 cm	
+
+Weight
+75  kg	
+
+Country Representing: VEN
+Olympic Games
+Épée	MedalGold | 2012 | London
+
+World Championships
+Individual	MedalSilver | 2013 | Budapest, MedalSilver | 2018 | Wuxi
+Team	MedalBronze | 2023 | Milan
+
+Pan American Championships
+Individual	MedalGold | 2009 | San Salvador, MedalGold | 2015 | Santiago, MedalGold | 2017 | Montreal, MedalGold | 2019 | Toronto, MedalSilver | 2008 | Querétaro, MedalSilver | 2012 | Cancún, MedalSilver | 2018 | Havana, MedalBronze | 2013 | Cartagena
+Team	MedalGold | 2009 | San Salvador, MedalGold | 2012 | Cancún, MedalGold | 2013 | Cartagena, MedalGold | 2016 | Panama City, MedalGold | 2017 | Montreal, MedalSilver | 2008 | Querétaro, MedalSilver | 2015 | Santiago, MedalSilver | 2018 | Havana, MedalBronze | 2011 | Reno
+None	MedalSilver | 2011 | Reno
+
+Pan American Games
+Individual	MedalGold | 2007 | Rio de Janeiro, MedalGold | 2015 | Toronto, MedalGold | 2019 | Lima, MedalSilver | 2011 | Guadalajara
+Team	MedalGold | 2015 | Toronto, MedalSilver | 2007 | Rio de Janeiro, MedalSilver | 2011 | Guadalajara, MedalBronze | 2019 | Lima
+
+Central American and Caribbean Games
+Team	MedalGold | 2010 | Mayagüez
+2006 Cartagena	MedalSilver | 2006 | Cartagena
+Individual	MedalSilver | 2010 | Mayagüez, MedalBronze | 2006 | Cartagena
+
+",32,"SELECT CASE 
+    WHEN COUNT(*) > 0 THEN 'Yes'
+    ELSE 'No'
+END AS has_won_bronze
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = 'Rubén Limardo'
+  AND m.type = 'MedalBronze'
+  AND t.name = 'Olympic Games';
+
+"
+Which city did Zhang Jike win his/her most recent medal ?,"Rio de Janeiro, Kuala Lumpur","Zhang Jike
+
+Personal Information
+Birth Date
+1988-2-16	
+
+Birth Place
+Qingdao	
+
+Height
+1.78 m	
+
+Weight
+73  kg	
+
+Country Representing: CHN
+Olympic Games
+Singles	MedalGold | 2012 | London, MedalSilver | 2016 | Rio de Janeiro
+Team	MedalGold | 2012 | London, MedalGold | 2016 | Rio de Janeiro
+
+World Championships
+Doubles	MedalBronze | 2009 | Yokohama, MedalBronze | 2011 | Rotterdam, MedalGold | 2015 | Suzhou
+Mixed doubles	MedalSilver | 2009 | Yokohama
+Team 	MedalGold | 2010 | Moscow
+Singles	MedalGold | 2011 | Rotterdam, MedalGold | 2013 | Paris, MedalBronze | 2015 | Suzhou
+Team	MedalGold | 2012 | Dortmund, MedalGold | 2014 | Tokyo, MedalGold | 2016 | Kuala Lumpur
+
+World Cup
+Team 	MedalGold | 2009 | Linz, MedalGold | 2010 | Dubai, MedalGold | 2013 | Guangzhou, MedalGold | 2015 | Dubai
+Singles 	MedalSilver | 2010 | Magdeburg, MedalGold | 2011 | Paris, MedalGold | 2014 | Düsseldorf
+
+Asian Games
+Doubles	MedalGold | 2010 | Guangzhou, MedalGold | 2014 | Incheon
+Team	MedalGold | 2010 | Guangzhou, MedalGold | 2014 | Incheon
+
+Asian Championships
+Singles 	MedalSilver | 2009 | Lucknow, MedalSilver | 2011 | Macau
+Team 	MedalGold | 2009 | Lucknow, MedalGold | 2011 | Macau, MedalGold | 2013 | Busan, MedalGold | 2015 | Pattaya
+
+",34,"SELECT DISTINCT m.location
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = 'Zhang Jike'
+  AND m.year = (
+    SELECT MAX(m2.year)
+    FROM Medal m2
+    JOIN Format f2 ON m2.format_id = f2.format_id
+    JOIN Tournament t2 ON f2.tournament_id = t2.tournament_id
+    JOIN Athlete a2 ON t2.athlete_id = a2.athlete_id
+    WHERE a2.name = 'Zhang Jike'
+  );"
+In which city did Olga Kharlan win his/her first Universiade Gold Medals ?,Shenzhen,"Olga Kharlan
+
+Personal Information
+Birth Date
+1990-9-4	
+
+Birth Place
+Mykolaiv	
+
+Height
+1.72 m	
+
+Weight
+63  kg	
+
+Coach
+Yevgeniy Statsenko	
+Artem Skorokhod	
+Yuriy Marchenko	
+
+Country Representing: UKR
+Olympic Games
+Team	MedalGold | 2008 | Beijing, MedalSilver | 2016 | Rio de Janeiro
+Individual	MedalBronze | 2012 | London, MedalBronze | 2016 | Rio de Janeiro
+
+World Championships
+Team	MedalGold | 2009 | Antalya, MedalGold | 2013 | Budapest, MedalSilver | 2007 | Saint Petersburg, MedalSilver | 2010 | Paris, MedalSilver | 2011 | Catania, MedalSilver | 2012 | Kyiv, MedalSilver | 2015 | Moscow, MedalBronze | 2014 | Kazan
+Individual	MedalGold | 2013 | Budapest, MedalGold | 2014 | Kazan, MedalGold | 2017 | Leipzig, MedalGold | 2019 | Budapest, MedalSilver | 2009 | Antalya, MedalSilver | 2010 | Paris, MedalBronze | 2011 | Catania
+
+European Games
+Individual	MedalGold | 2023 | Kraków
+Team	MedalGold | 2015 | Baku
+
+European Championships
+Individual	MedalGold | 2009 | Plovdiv, MedalGold | 2011 | Sheffield, MedalGold | 2012 | Legnano, MedalGold | 2013 | Zagreb, MedalGold | 2014 | Strasbourg, MedalGold | 2019 | Düsseldorf, MedalSilver | 2006 | Izmir, MedalBronze | 2016 | Toruń
+Team	MedalGold | 2009 | Plovdiv, MedalGold | 2010 | Leipzig, MedalSilver | 2007 | Ghent, MedalSilver | 2008 | Kyiv, MedalSilver | 2011 | Sheffield, MedalSilver | 2012 | Legnano, MedalSilver | 2013 | Zagreb, MedalSilver | 2018 | Novi Sad, MedalSilver | 2024 | Basel, MedalBronze | 2005 | Zalaegerszeg, MedalBronze | 2014 | Strasbourg, MedalBronze | 2015 | Montreux, MedalBronze | 2016 | Toruń, MedalBronze | 2022 | Antalya
+
+Universiade
+Individual	MedalGold | 2011 | Shenzhen, MedalGold | 2013 | Kazan
+Team	MedalSilver | 2011 | Shenzhen
+
+url
+Individual	MedalGold | 2007 | Belek, MedalGold | 2008 | Acireale, MedalGold | 2009 | Belfast, MedalBronze | 2005 | Linz
+Team	MedalGold | 2007 | Belek, MedalGold | 2008 | Acireale, MedalGold | 2009 | Belfast, MedalSilver | 2005 | Linz
+
+",35,"SELECT DISTINCT m.location
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = 'Olga Kharlan'
+  AND m.type = 'MedalGold'
+  AND t.name = 'Universiade'
+  AND m.year = (
+    SELECT MIN(m2.year)
+    FROM Medal m2
+    JOIN Format f2 ON m2.format_id = f2.format_id
+    JOIN Tournament t2 ON f2.tournament_id = t2.tournament_id
+    JOIN Athlete a2 ON t2.athlete_id = a2.athlete_id
+    WHERE a2.name = 'Olga Kharlan'
+      AND m2.type = 'MedalGold'
+      AND t2.name = 'Universiade'
+  );
+"
+At what age did Eli Dershwitz win his/her most recent Junior World Championships Gold Medals ?,20,"Eli Dershwitz
+
+Personal Information
+Birth Date
+1995-9-23	
+
+Birth Place
+Sherborn, Massachusetts	
+
+Height
+1.85 m	
+
+Weight
+79  kg	
+
+Coach
+Zoran Tulum	
+
+Country Representing: USA
+World Championships
+Individual	MedalGold | 2023 | Milan, MedalSilver | 2018 | Wuxi
+Team	MedalBronze | 2023 | Milan
+
+Pan American Games
+Individual	MedalGold | 2015 | Toronto
+Team	MedalGold | 2015 | Toronto, MedalGold | 2019 | Lima
+
+Pan American Championships
+Team	MedalGold | 2013 | Cartagena, MedalGold | 2016 | Panama City, MedalGold | 2017 | Montreal, MedalGold | 2018 | Havana, MedalGold | 2019 | Toronto, MedalGold | 2022 | Asunción, MedalGold | 2023 | Lima
+Individual	MedalGold | 2014 | San José, MedalGold | 2015 | Santiago, MedalGold | 2018 | Havana, MedalGold | 2019 | Toronto, MedalSilver | 2017 | Montreal, MedalSilver | 2022 | Asunción, MedalBronze | 2016 | Panama City
+
+Junior World Championships
+Individual	MedalGold | 2015 | Tashkent, MedalSilver | 2012 | Moscow, MedalBronze | 2013 | Porec
+Team	MedalBronze | 2014 | Plovdiv, MedalBronze | 2015 | Tashkent
+
+Maccabiah Games
+Individual	MedalGold | 2017 | Tel Aviv
+Team	MedalGold | 2017 | Tel Aviv
+
+",36,"SELECT (m.year - pi.birth_year) AS age_at_gold_medal
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+JOIN PersonalInformation pi ON a.athlete_id = pi.athlete_id
+WHERE a.name = 'Eli Dershwitz'
+  AND m.type = 'MedalGold'
+  AND t.name = 'Junior World Championships'
+  AND m.year = (
+    SELECT MAX(m2.year)
+    FROM Medal m2
+    JOIN Format f2 ON m2.format_id = f2.format_id
+    JOIN Tournament t2 ON f2.tournament_id = t2.tournament_id
+    JOIN Athlete a2 ON t2.athlete_id = a2.athlete_id
+    WHERE a2.name = 'Eli Dershwitz'
+      AND m2.type = 'MedalGold'
+      AND t2.name = 'Junior World Championships'
+  );"
+In which year(s) did Seo Seung-jae win medals in the Asian Junior Championships ?,"2015, 2013, 2014","Seo Seung-jae
+
+Personal Information
+Birth Date
+1997-9-4	
+
+Birth Place
+Jeonju	
+
+Height
+1.82 m	
+
+Weight
+
+Years Active
+
+Handedness
+Left	
+
+Coach
+	
+
+Date Of Highest Ranking
+
+Country Representing: KOR
+World Championships
+Men's doubles	MedalGold | 2023 | Copenhagen
+Mixed doubles	MedalGold | 2023 | Copenhagen
+
+Sudirman Cup
+Mixed team 	MedalGold | 2017 | Gold Coast, MedalSilver | 2023 | Suzhou, MedalBronze | 2021 | Vantaa
+
+Asian Games
+Mixed doubles	MedalBronze | 2022 | Hangzhou
+Men's team	MedalBronze | 2022 | Hangzhou
+
+Asia Championships
+Mixed doubles 	MedalSilver | 2024 | Ningbo
+
+Asia Team Championships
+Men's team 	MedalBronze | 2018 | Alor Setar, MedalBronze | 2024 | Selangor
+
+Summer Universiade
+Men's doubles	MedalGold | 2017 | Taipei
+
+World Junior Championships
+Mixed team	MedalGold | 2013 | Bangkok, MedalBronze | 2012 | Chiba
+Boys' doubles	MedalBronze | 2013 | Bangkok
+
+Asian Junior Championships
+Mixed team 	MedalSilver | 2013 | Kota Kinabalu, MedalSilver | 2014 | Taipei, MedalSilver | 2015 | Bangkok
+Boys' singles 	MedalSilver | 2015 | Bangkok
+
+",38,"SELECT DISTINCT m.year
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = 'Seo Seung-jae'
+  AND t.name = 'Asian Junior Championships';"
+Which was the most current medal win for Dola Banerjee ?,"2010  New Delhi Commonwealth Games in Team recurve format, 2010  New Delhi Commonwealth Games in Individual recurve format, 2010  Guangzhou Asian Games in Recurve team format","Dola Banerjee
+
+Personal Information
+Birth Date
+1980-06-02	
+
+Birth Place
+Baranagar	
+
+Country Representing: IND
+World Cup
+Individual	MedalGold | 2007 | Dubai
+
+Commonwealth Games
+Team recurve	MedalGold | 2010 | New Delhi
+Individual recurve	MedalBronze | 2010 | New Delhi
+
+Asian Games
+Recurve team	MedalBronze | 2010 | Guangzhou
+
+",39,"SELECT m.type, m.year, m.location, f.name AS format_name, t.name AS tournament_name
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = 'Dola Banerjee'
+  AND m.year = (
+    SELECT MAX(m2.year)
+    FROM Medal m2
+    JOIN Format f2 ON m2.format_id = f2.format_id
+    JOIN Tournament t2 ON f2.tournament_id = t2.tournament_id
+    JOIN Athlete a2 ON t2.athlete_id = a2.athlete_id
+    WHERE a2.name = 'Dola Banerjee'
+  );
+"
+How many Dressage World Cup appearances/wins does Charlotte Dujardin have ?,2,"Charlotte Dujardin
+
+Personal Information
+Birth Date
+1985-07-13	
+
+Birth Place
+London Borough of Enfield	
+
+Height
+1.70 m	
+
+Weight
+61& kg	
+
+Coach
+Carl Hester	
+
+Country Representing: GBR2
+Olympic Games
+Team dressage	MedalGold | 2012 | London, MedalSilver | 2016 | Rio de Janeiro, MedalBronze | 2020 | Tokyo
+Individual dressage	MedalGold | 2012 | London, MedalGold | 2016 | Rio de Janeiro, MedalBronze | 2020 | Tokyo
+
+World Equestrian Games
+Spécial dressage	MedalGold | 2014 | Normandy, MedalBronze | 2018 | Tryon
+Freestyle dressage	MedalGold | 2014 | Normandy
+Team dressage	MedalSilver | 2014 | Normandy, MedalBronze | 2018 | Tryon
+Team dressage 	MedalSilver | 2022 | Herning
+
+European Dressage Championships
+Team dressage	MedalGold | 2011 | Rotterdam, MedalGold | 2023 | Riesenbeck, MedalSilver | 2015 | Aachen, MedalSilver | 2021 | Hagen, MedalBronze | 2013 | Herning
+Spécial dressage	MedalGold | 2013 | Herning, MedalGold | 2015 | Aachen
+Freestyle dressage	MedalGold | 2013 | Herning, MedalGold | 2015 | Aachen, MedalBronze | 2023 | Riesenbeck
+Individual dressage	MedalBronze | 2021 | Hagen
+Special dressage	MedalBronze | 2023 | Riesenbeck
+
+Dressage World Cup
+Individual dressage	MedalGold | 2014 | Lyon, MedalGold | 2015 | Las Vegas
+
+",40,"SELECT 
+  COUNT(m.medal_id) AS total_wins
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = 'Charlotte Dujardin'
+  AND t.name = 'Dressage World Cup'
+  AND m.type = 'MedalGold';
+"
+In Which city has Oh Sang-uk won the most international medals ?,"Wuxi, Budapest, Jakarta, Hangzhou, Chiba, Naples","Oh Sang-uk
+
+Personal Information
+Birth Date
+1996-9-30	
+
+Birth Place
+Daejeon	
+
+Height
+1.91 m	
+
+Weight
+
+Coach
+	
+Kim Hyung-Yeol	
+
+Country Representing: KOR
+Olympic Games
+Team	MedalGold | 2020 | Tokyo
+
+World Championships
+Team	MedalGold | 2017 | Leipzig, MedalGold | 2018 | Wuxi, MedalGold | 2019 | Budapest, MedalGold | 2022 | Cairo, MedalSilver | 2023 | Milan
+Individual	MedalGold | 2019 | Budapest
+
+Asian Games
+Team	MedalGold | 2018 | Jakarta, MedalGold | 2022 | Hangzhou
+Individual	MedalSilver | 2018 | Jakarta, MedalGold | 2022 | Hangzhou
+
+Asian Championships
+Team	MedalGold | 2016 | Wuxi, MedalGold | 2017 | Hong Kong, MedalGold | 2019 | Chiba, MedalBronze | 2018 | Bangkok
+Individual	MedalGold | 2019 | Chiba
+
+Universiade
+Team	MedalGold | 2017 | Taipei, MedalGold | 2019 | Naples
+Individual	MedalGold | 2019 | Naples
+
+",43,"SELECT DISTINCT m.location
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = 'Oh Sang-uk'
+  AND m.location IN (
+    SELECT m.location
+    FROM Medal m
+    JOIN Format f ON m.format_id = f.format_id
+    JOIN Tournament t ON f.tournament_id = t.tournament_id
+    JOIN Athlete a ON t.athlete_id = a.athlete_id
+    WHERE a.name = 'Oh Sang-uk'
+    GROUP BY m.location
+    HAVING COUNT(m.medal_id) = (
+      SELECT MAX(medal_count)
+      FROM (
+        SELECT COUNT(m.medal_id) AS medal_count
+        FROM Medal m
+        JOIN Format f ON m.format_id = f.format_id
+        JOIN Tournament t ON f.tournament_id = t.tournament_id
+        JOIN Athlete a ON t.athlete_id = a.athlete_id
+        WHERE a.name = 'Oh Sang-uk'
+        GROUP BY m.location
+      ) AS location_medal_counts
+    )
+  );"
+Which was the most successful year for Áron Szilágyi in terms of highest Gold Medal wins?,2022,"Áron Szilágyi
+
+Personal Information
+Birth Date
+1990-1-14	
+
+Birth Place
+Budapest	
+
+Height
+1.80 m	
+
+Weight
+78  kg	
+
+Coach
+András Decsi	
+Béla Somlai, György Gerevich	
+
+Country Representing: HUN
+Olympic Games
+Individual	MedalGold | 2012 | London, MedalGold | 2016 | Rio de Janeiro, MedalGold | 2020 | Tokyo
+Team	MedalBronze | 2020 | Tokyo
+
+World Championships
+Team	MedalGold | 2007 | Saint Petersburg, MedalGold | 2023 | Milan, MedalSilver | 2016 | Rio de Janeiro, MedalSilver | 2017 | Leipzig, MedalSilver | 2019 | Budapest, MedalSilver | 2022 | Cairo, MedalBronze | 2009 | Antalya, MedalBronze | 2014 | Kazan, MedalBronze | 2018 | Wuxi
+Individual	MedalGold | 2022 | Cairo, MedalBronze | 2013 | Budapest, MedalBronze | 2023 | Milan
+
+European Games
+Individual	MedalBronze | 2023 | Kraków
+
+European Championships
+Individual	MedalGold | 2015 | Montreux, MedalSilver | 2017 | Tbilisi, MedalBronze | 2011 | Sheffield
+Team	MedalGold | 2018 | Novi Sad, MedalGold | 2022 | Antalya, MedalGold | 2024 | Basel, MedalSilver | 2013 | Zagreb, MedalSilver | 2019 | Düsseldorf, MedalBronze | 2015 | Montreux, MedalBronze | 2017 | Tbilisi
+
+",44,"SELECT m.year
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = 'Áron Szilágyi'
+  AND m.type = 'MedalGold'
+GROUP BY m.year
+HAVING COUNT(m.medal_id) = (
+  SELECT MAX(gold_medal_count)
+  FROM (
+    SELECT COUNT(m2.medal_id) AS gold_medal_count
+    FROM Medal m2
+    JOIN Format f2 ON m2.format_id = f2.format_id
+    JOIN Tournament t2 ON f2.tournament_id = t2.tournament_id
+    JOIN Athlete a2 ON t2.athlete_id = a2.athlete_id
+    WHERE a2.name = 'Áron Szilágyi'
+      AND m2.type = 'MedalGold'
+    GROUP BY m2.year
+  ) AS yearly_gold_counts
+);"
+How many International medals did Rawinda Prajongjai win in the  2023  ?,2,"Rawinda Prajongjai
+
+Personal Information
+Birth Date
+1993-6-29	
+
+Birth Place
+Bangkok	
+
+Height
+1.64 m	
+
+Weight
+54  kg	
+
+Years Active
+2013-present	
+
+Handedness
+Right	
+
+Date Of Highest Ranking
+
+Country Representing: THA
+Sudirman Cup
+Mixed team 	MedalBronze | 2017 | Gold Coast, MedalBronze | 2019 | Nanning
+
+Uber Cup
+Women's team 	MedalSilver | 2018 | Bangkok, MedalBronze | 2020 | Aarhus, MedalBronze | 2022 | Bangkok
+
+Asian Games
+Women's team	MedalBronze | 2018 | Jakarta, MedalBronze | 2022 | Hangzhou
+
+Asian Championships
+Women's doubles 	MedalBronze | 2023 | Dubai
+
+Asia Mixed Team Championships
+Mixed team 	MedalBronze | 2017 | Ho Chi Minh
+
+Asia Team Championships
+Women's team 	MedalSilver | 2024 | Selangor, MedalBronze | 2016 | Hyderabad, MedalBronze | 2020 | Manila
+
+SEA Games
+Women's team	MedalGold | 2015 | Singapore, MedalGold | 2017 | Kuala Lumpur, MedalGold | 2019 | Philippines, MedalGold | 2021 | Vietnam, MedalGold | 2023 | Cambodia
+Women's doubles	MedalGold | 2017 | Kuala Lumpur
+
+Summer Universiade
+Mixed team 	MedalBronze | 2013 | Kazan, MedalBronze | 2015 | Gwangju
+
+Asian Junior Championships
+Mixed team 	MedalBronze | 2009 | Kuala Lumpur
+
+",52,"SELECT COUNT(m.medal_id) AS total_medals
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = 'Rawinda Prajongjai'
+  AND m.year = 2023;"
+How many International Silver Medals did Prannoy H. S. win in the  2020  ?,0,"Prannoy H. S.
+
+Personal Information
+Birth Date
+1992-07-17	
+
+Birth Place
+Delhi	
+
+Height
+1.79 m	
+
+Weight
+73  kg	
+
+Handedness
+Right	
+
+Years Active
+
+Coach
+Pullela Gopichand	
+
+Career Record
+276 wins, 184 losses	
+
+Date Of Highest Ranking
+29 August 2023	
+
+Country Representing: IND
+World Championships
+Men's singles	MedalBronze | 2023 | Copenhagen
+
+Thomas Cup
+Men's team 	MedalGold | 2022 | Bangkok
+
+Commonwealth Games
+Mixed team	MedalGold | 2018 | Gold Coast
+
+Asian Games
+Men's team	MedalSilver | 2022 | Hangzhou
+Men's singles	MedalBronze | 2022 | Hangzhou
+
+Asian Championships
+Men's singles 	MedalBronze | 2018 | Wuhan
+
+Asia Mixed Team Championships
+Mixed team 	MedalBronze | 2023 | Dubai
+
+Asia Team Championships
+Men's team 	MedalBronze | 2016 | Hyderabad, MedalBronze | 2020 | Manila
+
+South Asian Games
+Men's team 	MedalGold | 2016 | Guwahati
+Men's singles 	MedalSilver | 2016 | Guwahati
+
+Youth Olympic Games
+Boys' singles	MedalSilver | 2010 | Singapore
+
+World Junior Championships
+Boys' singles 	MedalBronze | 2010 | Guadalajara
+
+",53,"SELECT COUNT(m.medal_id) AS total_silver_medals
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = 'Prannoy H. S.'
+  AND m.type = 'MedalSilver'
+  AND m.year = 2020;"
+Did Oh Sang-uk win international medals in the  2022  ?,Yes,"Oh Sang-uk
+
+Personal Information
+Birth Date
+1996-9-30	
+
+Birth Place
+Daejeon	
+
+Height
+1.91 m	
+
+Weight
+
+Coach
+	
+Kim Hyung-Yeol	
+
+Country Representing: KOR
+Olympic Games
+Team	MedalGold | 2020 | Tokyo
+
+World Championships
+Team	MedalGold | 2017 | Leipzig, MedalGold | 2018 | Wuxi, MedalGold | 2019 | Budapest, MedalGold | 2022 | Cairo, MedalSilver | 2023 | Milan
+Individual	MedalGold | 2019 | Budapest
+
+Asian Games
+Team	MedalGold | 2018 | Jakarta, MedalGold | 2022 | Hangzhou
+Individual	MedalSilver | 2018 | Jakarta, MedalGold | 2022 | Hangzhou
+
+Asian Championships
+Team	MedalGold | 2016 | Wuxi, MedalGold | 2017 | Hong Kong, MedalGold | 2019 | Chiba, MedalBronze | 2018 | Bangkok
+Individual	MedalGold | 2019 | Chiba
+
+Universiade
+Team	MedalGold | 2017 | Taipei, MedalGold | 2019 | Naples
+Individual	MedalGold | 2019 | Naples
+
+",54,"SELECT CASE 
+    WHEN COUNT(m.medal_id) > 0 THEN 'Yes'
+    ELSE 'No'
+END AS won_medals
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = 'Oh Sang-uk'
+  AND m.year = 2022;"
+What is the average number of medals won by Peter Joppich in one year ?,1,"Peter Joppich
+
+Personal Information
+Birth Date
+1982-12-21	
+
+Birth Place
+Koblenz	
+
+Height
+
+Weight
+68 kg	
+
+Coach
+	
+
+Country Representing: GER
+Olympic Games
+Team foil	MedalBronze | 2012 | London
+
+World Championships
+Team foil	MedalGold | 2002 | Lisbon, MedalSilver | 2006 | Turin, MedalSilver | 2007 | St, MedalSilver | 2008 | Beijing, MedalSilver | 2009 | Antalya, MedalBronze | 2003 | Havana, MedalBronze | 2005 | Leipzig, MedalBronze | 2011 | Catania
+Foil	MedalGold | 2003 | Havana, MedalGold | 2006 | Turin, MedalGold | 2007 | St, MedalGold | 2010 | Paris, MedalBronze | 2009 | Antalya
+
+European Championships
+Team foil	MedalGold | 2007 | Gent, MedalGold | 2013 | Zagreb, MedalSilver | 2019 | Düsseldorf, MedalBronze | 2009 | Plovdiv, MedalBronze | 2012 | Legnano, MedalBronze | 2015 | Montreux
+Foil	MedalGold | 2013 | Zagreb, MedalBronze | 2014 | Strasbourg
+
+",55,"SELECT ROUND(AVG(medal_count)) AS average_medals_per_year
+FROM (
+    SELECT COUNT(m.medal_id) AS medal_count
+    FROM Medal m
+    JOIN Format f ON m.format_id = f.format_id
+    JOIN Tournament t ON f.tournament_id = t.tournament_id
+    JOIN Athlete a ON t.athlete_id = a.athlete_id
+    WHERE a.name = 'Peter Joppich'
+    GROUP BY m.year
+) AS yearly_medals;
+"
+How many medals did Charlotte Fry win in his early twenties ?,2,"Charlotte Fry
+
+Personal Information
+Birth Date
+1996-2-11	
+
+Birth Place
+Scarborough, North Yorkshire	
+
+Height
+
+Weight
+
+Coach
+Anne van Olst	
+
+Country Representing: GBR2
+Olympic Games
+Team Dressage	MedalBronze | 2020 | Tokyo
+
+World Championships
+Individual special dressage 	MedalGold | 2022 | Herning
+Individual freestyle dressage	MedalGold | 2022 | Herning
+Team dressage 	MedalSilver | 2022 | Herning
+
+European Championships
+Team dressage	MedalGold | 2023 | Riesenbeck, MedalSilver | 2021 | Hagen
+Individual dressage	MedalSilver | 2023 | Riesenbeck
+
+World Championships for Young Dressage Horses 
+Individual dressage 	MedalGold | 2018 | Ermelo, MedalGold | 2021 | Verden
+
+U25 European Dressage Championships
+Individual dressage	MedalGold | 2018 | Exloo
+
+",57,"SELECT COUNT(m.medal_id) AS total_medals
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+JOIN PersonalInformation pi ON a.athlete_id = pi.athlete_id
+WHERE a.name = 'Charlotte Fry'
+  AND (m.year - pi.birth_year) BETWEEN 20 AND 23;
+"
+How many medals did Douglas Brose win in his mid twenties ?,6,"Douglas Brose
+
+Personal Information
+Birth Date
+1985-12-11	
+
+Birth Place
+	
+
+Years Active
+
+Height
+
+Weight
+60  kg	
+
+Coach
+
+Country Representing: BRA
+World Championships
+Kumite 60 kg 	MedalGold | 2010 | Belgrade, MedalGold | 2014 | Bremen, MedalSilver | 2012 | Paris, MedalBronze | 2008 | Tokyo
+Kumite 60 kg	MedalGold | 2021 | Dubai
+
+World Games
+Kumite 60 kg 	MedalGold | 2009 | Kaohsiung, MedalSilver | 2013 | Cali
+Kumite 60 kg	MedalSilver | 2022 | Birmingham
+
+World Combat Games
+Kumite 60 kg 	MedalBronze | 2013 | St
+
+Pan American Games
+Kumite 60 kg	MedalGold | 2015 | Toronto
+Kumite 60 kg 	MedalSilver | 2019 | Lima, MedalBronze | 2007 | Rio de Janeiro, MedalBronze | 2011 | Guadalajara, MedalBronze | 2023 | Santiago
+
+Pan American Championship
+Kumite 60 kg 	MedalGold | 2011 | Guadalajara, MedalGold | 2014 | Lima, MedalGold | 2015 | Toronto, MedalGold | 2016 | Rio, MedalGold | 2017 | Curaçao, MedalGold | 2019 | Panamá, MedalGold | 2021 | Punta del Este, MedalGold | 2022 | Curaçao, MedalBronze | 2023 | Costa Rica
+
+South American Games
+Team kumite 	MedalGold | 2010 | Medellín
+Kumite 60 kg 	MedalGold | 2014 | Santiago, MedalGold | 2022 | Asunción
+
+",58,"SELECT COUNT(m.medal_id) AS total_medals
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+JOIN PersonalInformation pi ON a.athlete_id = pi.athlete_id
+WHERE a.name = 'Douglas Brose'
+  AND (m.year - pi.birth_year) BETWEEN 24 AND 27;"
+How many medals did Feng Yanzhe win in his late twenties ?,0,"Feng Yanzhe
+
+Personal Information
+Birth Date
+2001-02-13	
+
+Birth Place
+Tianjin	
+
+Height
+1.95 m	
+
+Weight
+
+Years Active
+
+Handedness
+Right	
+
+Coach
+	
+
+Date Of Highest Ranking
+with 	
+
+Country Representing: CHN
+Sudirman Cup
+Mixed team 	MedalGold | 2021 | Vantaa, MedalGold | 2023 | Suzhou
+
+Asian Games
+Men's team	MedalGold | 2022 | Hangzhou
+Mixed doubles	MedalBronze | 2022 | Hangzhou
+
+Asian Championships
+Mixed doubles 	MedalGold | 2024 | Ningbo
+
+Asia Mixed Team Championships
+Mixed team 	MedalGold | 2023 | Dubai
+
+World Junior Championships
+Mixed team	MedalGold | 2018 | Markham, MedalSilver | 2019 | Kazan
+Mixed doubles	MedalGold | 2019 | Kazan
+
+Asian Junior Championships
+Mixed doubles	MedalSilver | 2019 | Suzhou
+Boys' doubles	MedalBronze | 2019 | Suzhou
+Mixed team 	MedalBronze | 2019 | Suzhou
+
+",59,"SELECT COUNT(m.medal_id) AS total_medals
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+JOIN PersonalInformation pi ON a.athlete_id = pi.athlete_id
+WHERE a.name = 'Feng Yanzhe'
+  AND (m.year - pi.birth_year) BETWEEN 28 AND 29;"
+How old was Ayumi Uekusa when he/she won their first international medal ?,20,"Ayumi Uekusa
+
+Personal Information
+Birth Date
+1992-7-25	
+
+Birth Place
+Yachimata, Chiba	
+
+Height
+168 cm	
+
+Weight
+68  kg	
+
+Coach
+	
+
+Country Representing: JPN
+World championships
+68 kg	MedalBronze | 2012 | Paris, MedalBronze | 2014 | Bremen, MedalGold | 2016 | Linz, MedalSilver | 2018 | Madrid
+Team	MedalBronze | 2012 | Paris, MedalBronze | 2014 | Bremen, MedalSilver | 2018 | Madrid
+
+Asian Games
+68 kg	MedalBronze | 2014 | Incheon, MedalGold | 2018 | Jakarta
+
+Asian Championships
+68 kg	MedalSilver | 2013 | Dubai, MedalBronze | 2015 | Yokohama, MedalGold | 2017 | Astana, MedalBronze | 2018 | Amman
+Team	MedalBronze | 2017 | Astana
+68 kg 	MedalGold | 2022 | Tashkent
+
+",60,"SELECT (m.year - pi.birth_year) AS age_at_first_medal
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+JOIN PersonalInformation pi ON a.athlete_id = pi.athlete_id
+WHERE a.name = 'Ayumi Uekusa'
+ORDER BY m.year ASC
+LIMIT 1;"
+Does Evgeny Rylov have more medals in their twenties as compared to their thirties ?,Yes,"Evgeny Rylov
+
+Personal Information
+Coach
+Andrey Shishin	
+
+Birth Date
+1996-9-23	
+
+Birth Place
+Novotroitsk	
+
+Height
+1.85 m	
+
+Weight
+78  kg	
+
+Country Representing: Russia
+Olympic Games
+200 m backstroke	MedalBronze | 2016 | Rio de Janeiro
+
+World Championships (LC)
+200 m backstroke	MedalGold | 2017 | Budapest, MedalGold | 2019 | Gwangju, MedalBronze | 2015 | Kazan
+50 m backstroke	MedalSilver | 2019 | Gwangju
+100 m backstroke	MedalSilver | 2019 | Gwangju
+4x100 m freestyle	MedalSilver | 2019 | Gwangju
+4x100 m medley	MedalBronze | 2017 | Budapest, MedalBronze | 2019 | Gwangju
+
+World Championships (SC)
+50 m backstroke	MedalGold | 2018 | Hangzhou
+200 m backstroke	MedalGold | 2018 | Hangzhou
+4x50 m medley	MedalGold | 2018 | Hangzhou
+4x50 m freestyle	MedalSilver | 2018 | Hangzhou
+4x100 m freestyle	MedalSilver | 2018 | Hangzhou
+4x50 m mixed freestyle	MedalBronze | 2018 | Hangzhou
+4x50 m mixed medley	MedalBronze | 2018 | Hangzhou
+
+European Championships (LC)
+200 m backstroke	MedalGold | 2018 | Glasgow, MedalGold | 2020 | Budapest
+4x100 m freestyle	MedalGold | 2018 | Glasgow, MedalGold | 2020 | Budapest
+100 m backstroke	MedalSilver | 2018 | Glasgow
+4x100 m medley	MedalSilver | 2018 | Glasgow, MedalSilver | 2020 | Budapest
+4x200 m mixed freestyle	MedalBronze | 2020 | Budapest
+
+European Championships (SC)
+4x50 m freestyle	MedalBronze | 2021 | Kazan
+
+Summer Youth Olympics
+50 m backstroke	MedalGold | 2014 | Nanjing
+100 m backstroke	MedalGold | 2014 | Nanjing
+4x100 m medley	MedalGold | 2014 | Nanjing
+200 m backstroke	MedalSilver | 2014 | Nanjing
+
+",64,"SELECT CASE 
+    WHEN SUM(CASE WHEN (m.year - pi.birth_year) BETWEEN 20 AND 29 THEN 1 ELSE 0 END) > 
+         SUM(CASE WHEN (m.year - pi.birth_year) BETWEEN 30 AND 39 THEN 1 ELSE 0 END)
+    THEN 'Yes'
+    ELSE 'No'
+END AS has_more_medals_in_twenties
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+JOIN PersonalInformation pi ON a.athlete_id = pi.athlete_id
+WHERE a.name = 'Evgeny Rylov';
+"
+In which year(s) did Huang Dongping win the highest number of medals during their career ?,2013,"Huang Dongping
+
+Personal Information
+Birth Date
+1995-4-30	
+
+Birth Place
+Nan	
+
+Height
+1.65 m	
+
+Weight
+
+Years Active
+
+Handedness
+Right	
+
+Coach
+	
+
+Date Of Highest Ranking
+
+Country Representing: CHN
+Olympic Games
+Mixed doubles	MedalGold | 2020 | Tokyo
+
+World Championships
+Mixed doubles	MedalSilver | 2018 | Nanjing, MedalBronze | 2019 | Basel, MedalBronze | 2022 | Tokyo
+
+Sudirman Cup
+Mixed team 	MedalGold | 2019 | Nanning, MedalGold | 2021 | Vantaa, MedalGold | 2023 | Suzhou, MedalSilver | 2017 | Gold Coast
+
+Uber Cup
+Women's team 	MedalGold | 2020 | Aarhus, MedalSilver | 2022 | Bangkok, MedalBronze | 2018 | Bangkok
+
+Asian Games
+Women's team	MedalSilver | 2018 | Jakarta, MedalSilver | 2022 | Hangzhou
+Mixed doubles	MedalBronze | 2018 | Jakarta, MedalBronze | 2022 | Hangzhou
+
+Asian Championships
+Mixed doubles 	MedalGold | 2018 | Wuhan, MedalGold | 2019 | Wuhan, MedalGold | 2024 | Ningbo, MedalSilver | 2022 | Manila, MedalBronze | 2017 | Wuhan
+Women's doubles	MedalBronze | 2017 | Wuhan
+
+Asia Mixed Team Championships
+Mixed team 	MedalGold | 2023 | Dubai, MedalBronze | 2017 | Ho Chi Minh
+
+World Junior Championships
+Mixed team	MedalGold | 2012 | Chiba, MedalBronze | 2013 | Bangkok
+Girls' doubles	MedalBronze | 2013 | Bangkok
+Mixed doubles	MedalBronze | 2013 | Bangkok
+
+Asian Junior Championships
+Girls' doubles	MedalGold | 2013 | Kota Kinabalu
+Mixed team 	MedalGold | 2013 | Kota Kinabalu, MedalSilver | 2012 | Gimcheon
+Mixed doubles	MedalSilver | 2012 | Gimcheon, MedalSilver | 2013 | Kota Kinabalu
+
+",65,"SELECT m.year
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = 'Huang Dongping'
+GROUP BY m.year
+ORDER BY COUNT(m.medal_id) DESC
+LIMIT 1;"
+In which year(s) did Tomokazu Harimoto win the lowest number of medals during their career ?,"2020, 2024, 2017","Tomokazu Harimoto
+
+Personal Information
+Birth Date
+2003-6-27        
+
+Birth Place
+Sendai        
+
+Height
+1.78 m        
+
+Weight
+64  kg        
+
+Country Representing: JPN
+Olympic Games
+Team        MedalBronze | 2020 | Tokyo
+
+World Championships
+Mixed doubles        MedalSilver | 2021 | Houston, MedalSilver | 2023 | Durban
+Team        MedalBronze | 2022 | Chengdu
+
+World Cup
+Team        MedalSilver | 2018 | London
+Singles        MedalSilver | 2019 | Chengdu, MedalBronze | 2024 | Macao
+Mixed team        MedalBronze | 2023 | Chengdu
+
+WTT Cup Finals
+Singles        MedalSilver | 2021 | Singapore, MedalSilver | 2022 | Xinxiang
+
+ITTF World Tour Grand Finals
+Singles        MedalGold | 2018 | Incheon
+
+Asian Championships
+Team        MedalBronze | 2017 | Wuxi, MedalBronze | 2019 | Yogyakarta
+Singles        MedalBronze | 2019 | Yogyakarta
+
+Asian Cup
+Singles        MedalGold | 2022 | Bangkok
+
+Summer Youth Olympics
+Singles        MedalSilver | 2018 | Buenos Aires
+Mixed team        MedalSilver | 2018 | Buenos Aires
+
+World Junior Championships
+Singles        MedalGold | 2016 | Cape Town
+Team        MedalGold | 2016 | Cape Town
+Doubles        MedalSilver | 2016 | Cape Town
+
+Asian Junior Championships
+Team        MedalGold | 2016 | Bangkok
+Singles        MedalSilver | 2016 | Bangkok
+
+",66,"SELECT m.year
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = 'Tomokazu Harimoto'
+GROUP BY m.year
+HAVING COUNT(m.medal_id) = (
+    SELECT MIN(medal_count)
+    FROM (
+        SELECT COUNT(m2.medal_id) AS medal_count
+        FROM Medal m2
+        JOIN Athlete a2 ON m2.format_id = a2.athlete_id
+        WHERE a2.name = 'Tomokazu Harimoto'
+        GROUP BY m2.year
+    ) AS yearly_medal_counts
+);"
+Does Emma Weyant have more Bronze Medals than Gold Medals ?,Yes,"Emma Weyant
+
+Personal Information
+Birth Date
+2001-12-24	
+
+Birth Place
+Sarasota, Florida	
+
+Coach
+	
+
+Height
+
+Weight
+123 kg	
+
+Country Representing: USA
+Olympic Games
+400 m medley	MedalSilver | 2020 | Tokyo
+
+World Championships (LC)
+400 m medley	MedalBronze | 2022 | Budapest
+
+World Championships (SC)
+4x200 m freestyle	MedalSilver | 2021 | Abu Dhabi
+
+Junior Pan Pacific Championships
+400 m medley	MedalGold | 2018 | Suva
+800 m freestyle	MedalBronze | 2018 | Suva
+
+",68,"SELECT CASE 
+    WHEN SUM(CASE WHEN m.type = 'MedalBronze' THEN 1 ELSE 0 END) > 
+         SUM(CASE WHEN m.type = 'MedalGold' THEN 1 ELSE 0 END)
+    THEN 'Yes'
+    ELSE 'No'
+END AS has_more_bronze_than_gold
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = 'Emma Weyant';"
+Does Emily Escobedo have more Bronze Medals than Gold Medals in World University Games ?,No,"Emily Escobedo
+
+Personal Information
+Birth Date
+1995-12-17	
+
+Birth Place
+New Rochelle, New York	
+
+Height
+
+Weight
+
+Country Representing: USA
+World Championships (SC)
+200 m breaststroke	MedalGold | 2021 | Abu Dhabi
+4x50 m medley	MedalSilver | 2021 | Abu Dhabi
+
+World University Games
+4x100 m medley	MedalGold | 2019 | Naples
+200 m breaststroke	MedalSilver | 2019 | Naples
+
+",69,"SELECT CASE 
+    WHEN SUM(CASE WHEN m.type = 'MedalBronze' THEN 1 ELSE 0 END) > 
+         SUM(CASE WHEN m.type = 'MedalGold' THEN 1 ELSE 0 END)
+    THEN 'Yes'
+    ELSE 'No'
+END AS has_more_bronze_than_gold
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = 'Emily Escobedo'
+  AND t.name = 'World University Games';"
+Does Rubén Limardo have more Silver Medals than Bronze Medals in Team ?,Yes,"Rubén Limardo
+
+Personal Information
+Birth Date
+1985-8-3	
+
+Birth Place
+
+Height
+175 cm	
+
+Weight
+75  kg	
+
+Country Representing: VEN
+Olympic Games
+Épée	MedalGold | 2012 | London
+
+World Championships
+Individual	MedalSilver | 2013 | Budapest, MedalSilver | 2018 | Wuxi
+Team	MedalBronze | 2023 | Milan
+
+Pan American Championships
+Individual	MedalGold | 2009 | San Salvador, MedalGold | 2015 | Santiago, MedalGold | 2017 | Montreal, MedalGold | 2019 | Toronto, MedalSilver | 2008 | Querétaro, MedalSilver | 2012 | Cancún, MedalSilver | 2018 | Havana, MedalBronze | 2013 | Cartagena
+Team	MedalGold | 2009 | San Salvador, MedalGold | 2012 | Cancún, MedalGold | 2013 | Cartagena, MedalGold | 2016 | Panama City, MedalGold | 2017 | Montreal, MedalSilver | 2008 | Querétaro, MedalSilver | 2015 | Santiago, MedalSilver | 2018 | Havana, MedalBronze | 2011 | Reno
+None	MedalSilver | 2011 | Reno
+
+Pan American Games
+Individual	MedalGold | 2007 | Rio de Janeiro, MedalGold | 2015 | Toronto, MedalGold | 2019 | Lima, MedalSilver | 2011 | Guadalajara
+Team	MedalGold | 2015 | Toronto, MedalSilver | 2007 | Rio de Janeiro, MedalSilver | 2011 | Guadalajara, MedalBronze | 2019 | Lima
+
+Central American and Caribbean Games
+Team	MedalGold | 2010 | Mayagüez
+2006 Cartagena	MedalSilver | 2006 | Cartagena
+Individual	MedalSilver | 2010 | Mayagüez, MedalBronze | 2006 | Cartagena
+
+",70,"SELECT CASE 
+    WHEN SUM(CASE WHEN m.type = 'MedalSilver' THEN 1 ELSE 0 END) > 
+         SUM(CASE WHEN m.type = 'MedalBronze' THEN 1 ELSE 0 END)
+    THEN 'Yes'
+    ELSE 'No'
+END AS has_more_silver_than_bronze
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = 'Rubén Limardo'
+  AND f.name LIKE '%Team%';"
+Which medal type does Wang Jianjiahe has won the most medals in ?,Gold,"Wang Jianjiahe
+
+Personal Information
+Birth Date
+2002-7-17	
+
+Birth Place
+Anshan, Liaoning	
+
+Height
+1.82 m	
+
+Weight
+66  kg	
+
+Country Representing: CHN
+World Championships
+1500 m freestyle	MedalBronze | 1500 | m freestyle
+
+World Championships (SC)
+800 m freestyle	MedalGold | 2018 | Hangzhou
+4x200 m freestyle	MedalGold | 2018 | Hangzhou
+400 m freestyle	MedalSilver | 2018 | Hangzhou
+
+Asian Games
+400 m freestyle	MedalGold | 2018 | Jakarta
+800 m freestyle	MedalGold | 2018 | Jakarta
+1500 m freestyle	MedalGold | 1500 | m freestyle
+4x200 m freestyle	MedalGold | 2018 | Jakarta
+
+",71,"SELECT m.type AS medal_type
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = 'Wang Jianjiahe'
+GROUP BY m.type
+ORDER BY COUNT(m.medal_id) DESC
+LIMIT 1;"
+How many years passed between Christian Coleman's first and most recent International medal ?,6,"Christian Coleman
+
+Personal Information
+Birth Date
+1996-3-6	
+
+Birth Place
+Atlanta, Georgia	
+
+Height
+
+Weight
+159 kg	
+
+Coach
+Tim Hall	
+
+Country Representing: USA
+World Championships
+100 m	MedalGold | 2019 | Doha, MedalSilver | 2017 | London
+4x100 m relay	MedalGold | 2019 | Doha, MedalGold | 2023 | Budapest, MedalSilver | 2017 | London, MedalSilver | 2022 | Eugene
+
+World Indoor Championships
+60 m	MedalGold | 2018 | Birmingham
+
+Diamond League
+
+",73,"SELECT MAX(m.year) - MIN(m.year) AS years_passed
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = 'Christian Coleman';"
+How many times did Todd Harrity win an International medal in the Pan American Championship before  2016  ?,1,"Todd Harrity
+
+Personal Information
+Birth Date
+1990-9-16	
+
+Birth Place
+Bryn Mawr, Pennsylvania	
+
+Height
+
+Weight
+
+Coach
+Hadrian Stiff, Scott Devoy	
+
+Date Of Highest Ranking
+February 2022	
+
+Country Representing: USA
+Pan American Games
+Team	MedalGold | 2019 | Lima, MedalBronze | 2015 | Toronto
+Doubles	MedalGold | 2019 | Lima
+
+Pan American Championship
+Team	MedalGold | 2016 | Hartford, MedalBronze | 2014 | Toluca, MedalBronze | 2018 | Cayman Island
+Individual	MedalBronze | 2018 | Cayman Island
+Doubles	MedalBronze | 2018 | Cayman Island
+
+",74,"SELECT COUNT(m.medal_id) AS total_medals
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = 'Todd Harrity'
+  AND t.name = 'Pan American Championship'
+  AND m.year < 2016;"
+In which format did Dimitrij Ovtcharov win his/her first International medal ?,"Team, Singles","Dimitrij Ovtcharov
+
+Personal Information
+Birth Date
+1988-9-2	
+
+Birth Place
+Kyiv	
+
+Height
+186 cm	
+
+Weight
+78  kg	
+
+Country Representing: GER
+Olympic Games
+Team	MedalSilver | 2008 | Beijing, MedalSilver | 2020 | Tokyo, MedalBronze | 2012 | London, MedalBronze | 2016 | Rio de Janeiro
+Singles	MedalBronze | 2012 | London, MedalBronze | 2020 | Tokyo
+
+World Championships
+Team 	MedalSilver | 2010 | Moscow
+Team	MedalSilver | 2012 | Dortmund, MedalSilver | 2014 | Tokyo, MedalSilver | 2018 | Halmstad
+Doubles	MedalBronze | 2023 | Durban
+
+World Cup
+Singles 	MedalGold | 2017 | Liège, MedalBronze | 2013 | Verviers, MedalBronze | 2015 | Halmstad
+Team 	MedalBronze | 2009 | Linz, MedalBronze | 2011 | Magdeburg
+
+European Games
+Singles	MedalGold | 2015 | Baku
+Team	MedalGold | 2019 | Minsk, MedalGold | 2023 | Kraków
+
+European Championships
+Team 	MedalGold | 2007 | Belgrade, MedalGold | 2008 | Saint, MedalGold | 2009 | Stuttgart, MedalGold | 2010 | Ostrava, MedalGold | 2011 | Sopot, MedalGold | 2013 | Schwechat, MedalGold | 2017 | Luxembourg City, MedalGold | 2019 | Nantes, MedalSilver | 2014 | Lisbon, MedalSilver | 2015 | Ekaterinburg
+Singles 	MedalGold | 2013 | Schwechat, MedalGold | 2015 | Ekaterinburg, MedalSilver | 2020 | Warsaw, MedalBronze | 2007 | Belgrade
+Doubles 	MedalBronze | 2012 | Herning
+
+Europe Top
+Singles	MedalGold | 2012 | Lyon, MedalGold | 2015 | Baku, MedalGold | 2016 | Gondomar, MedalGold | 2017 | Antibes, MedalGold | 2019 | Montreux, MedalSilver | 2018 | Montreux, MedalBronze | 2014 | Lausanne, MedalBronze | 2023 | Montreux
+
+",75,"SELECT DISTINCT f.name AS format_name
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = 'Dimitrij Ovtcharov'
+  AND m.year = (
+    SELECT MIN(m2.year)
+    FROM Medal m2
+    JOIN Athlete a2 ON m2.format_id = a2.athlete_id
+    WHERE a2.name = 'Dimitrij Ovtcharov'
+  );"
+In which city did Karim Abdel Gawad win his/her first International medal ?,Cairo,"Karim Abdel Gawad
+
+Personal Information
+Birth Date
+1991-7-30	
+
+Birth Place
+Alexandria	
+
+Height
+
+Weight
+72 kg	
+
+Coach
+Hisham El Attar	
+
+Years Active
+
+Date Of Highest Ranking
+May 2017	
+
+Country Representing: EGY
+World Championships
+Singles	MedalGold | 2016 | Cairo, MedalSilver | 2023 | Chicago
+
+World Team Championships
+Team	MedalGold | 2017 | Marseille, MedalGold | 2019 | Washington D
+
+",77,"SELECT DISTINCT m.location
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = 'Karim Abdel Gawad'
+  AND m.year = (
+    SELECT MIN(m2.year)
+    FROM Medal m2
+    JOIN Athlete a2 ON m2.format_id = a2.athlete_id
+    WHERE a2.name = 'Karim Abdel Gawad'
+  );"
+In which year did Ariarne Titmus win his/her first International medal ?,2016,"Ariarne Titmus
+
+Personal Information
+Birth Date
+2000-9-7	
+
+Birth Place
+Launceston, Tasmania	
+
+Coach
+Dean Boxall	
+
+Height
+1.77 m	
+
+Weight
+63  kg	
+
+Country Representing: AUS
+Olympic Games
+200 m freestyle	MedalGold | 2020 | Tokyo
+400 m freestyle	MedalGold | 2020 | Tokyo
+800 m freestyle	MedalSilver | 2020 | Tokyo
+4x200 m freestyle	MedalBronze | 2020 | Tokyo
+
+World Championships (LC)
+400 m freestyle	MedalGold | 2019 | Gwangju, MedalGold | 2023 | Fukuoka
+4x200 m freestyle	MedalGold | 2019 | Gwangju, MedalGold | 2023 | Fukuoka, MedalBronze | 2017 | Budapest
+200 m freestyle	MedalSilver | 2019 | Gwangju, MedalSilver | 2023 | Fukuoka
+800 m freestyle	MedalBronze | 2019 | Gwangju, MedalBronze | 2023 | Fukuoka
+
+World Championships (SC)
+200 m freestyle	MedalGold | 2018 | Hangzhou
+400 m freestyle	MedalGold | 2018 | Hangzhou
+4x50 m freestyle	MedalBronze | 2018 | Hangzhou
+4x200 m freestyle	MedalBronze | 2018 | Hangzhou
+
+Pan Pacific Championships
+4x200 m freestyle	MedalGold | 2018 | Tokyo
+400 m freestyle	MedalSilver | 2018 | Tokyo
+800 m freestyle	MedalSilver | 2018 | Tokyo
+
+Commonwealth Games
+400 m freestyle	MedalGold | 2018 | Gold Coast, MedalGold | 2022 | Birmingham
+800 m freestyle	MedalGold | 2018 | Gold Coast, MedalGold | 2022 | Birmingham
+4x200 m freestyle	MedalGold | 2018 | Gold Coast, MedalGold | 2022 | Birmingham
+200 m freestyle	MedalGold | 2022 | Birmingham, MedalSilver | 2018 | Gold Coast
+
+Junior Pan Pacific Championships
+4x200 m freestyle	MedalSilver | 2016 | Maui
+400 m freestyle	MedalBronze | 2016 | Maui
+
+",78,"SELECT MIN(m.year) AS first_medal_year
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = 'Ariarne Titmus';"
+How many medals did Eli Dershwitz win in his/her twenties ?,24,"Eli Dershwitz
+
+Personal Information
+Birth Date
+1995-9-23	
+
+Birth Place
+Sherborn, Massachusetts	
+
+Height
+1.85 m	
+
+Weight
+79  kg	
+
+Coach
+Zoran Tulum	
+
+Country Representing: USA
+World Championships
+Individual	MedalGold | 2023 | Milan, MedalSilver | 2018 | Wuxi
+Team	MedalBronze | 2023 | Milan
+
+Pan American Games
+Individual	MedalGold | 2015 | Toronto
+Team	MedalGold | 2015 | Toronto, MedalGold | 2019 | Lima
+
+Pan American Championships
+Team	MedalGold | 2013 | Cartagena, MedalGold | 2016 | Panama City, MedalGold | 2017 | Montreal, MedalGold | 2018 | Havana, MedalGold | 2019 | Toronto, MedalGold | 2022 | Asunción, MedalGold | 2023 | Lima
+Individual	MedalGold | 2014 | San José, MedalGold | 2015 | Santiago, MedalGold | 2018 | Havana, MedalGold | 2019 | Toronto, MedalSilver | 2017 | Montreal, MedalSilver | 2022 | Asunción, MedalBronze | 2016 | Panama City
+
+Junior World Championships
+Individual	MedalGold | 2015 | Tashkent, MedalSilver | 2012 | Moscow, MedalBronze | 2013 | Porec
+Team	MedalBronze | 2014 | Plovdiv, MedalBronze | 2015 | Tashkent
+
+Maccabiah Games
+Individual	MedalGold | 2017 | Tel Aviv
+Team	MedalGold | 2017 | Tel Aviv
+
+",95,"SELECT COUNT(m.medal_id) AS total_medals
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+JOIN PersonalInformation pi ON a.athlete_id = pi.athlete_id
+WHERE a.name = 'Eli Dershwitz'
+  AND (m.year - pi.birth_year) BETWEEN 20 AND 29;"
+How many medals did Dorothee Schneider win in his/her thirties ?,0,"Dorothee Schneider
+
+Personal Information
+Birth Date
+1969-2-17	
+
+Birth Place
+Mainz	
+
+Height
+
+Weight
+63& kg	
+
+Coach
+	
+
+Country Representing: GER
+Olympic Games
+Team dressage	MedalGold | 2016 | Rio de Janeiro, MedalGold | 2020 | Tokyo, MedalSilver | 2012 | London
+
+World Championships
+Team dressage	MedalGold | 2018 | Tryon
+
+European Championships
+Team dressage	MedalGold | 2017 | Gothenburg, MedalGold | 2019 | Rotterdam, MedalGold | 2021 | Hagen
+Special dressage	MedalSilver | 2019 | Rotterdam
+Freestyle dressage	MedalSilver | 2019 | Rotterdam
+
+",96,"SELECT COUNT(m.medal_id) AS total_medals
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+JOIN PersonalInformation pi ON a.athlete_id = pi.athlete_id
+WHERE a.name = 'Dorothee Schneider'
+  AND (m.year - pi.birth_year) BETWEEN 30 AND 39;"
+"Count the different events in which Ryutaro Araga improved his medal color in any later iterations of any tournament, including non-consecutive cycles",5,"Ryutaro Araga
+
+Personal Information
+Birth Date
+1990-10-16	
+
+Birth Place
+Kameoka, Kyoto	
+
+Years Active
+
+Height
+
+Weight
+
+Coach
+	
+
+Country Representing: JPN
+Summer Olympics
+Kumite 	MedalBronze | 2020 | Tokyo
+
+World Championships
+Kumite 84 kg	MedalGold | 2016 | Linz, MedalSilver | 2012 | Paris, MedalSilver | 2014 | Bremen
+Team kumite	MedalSilver | 2016 | Linz, MedalBronze | 2014 | Bremen, MedalBronze | 2018 | Madrid
+
+Asian Championships
+Kumite 84 kg	MedalGold | 2013 | Dubai, MedalGold | 2015 | Yokohama, MedalGold | 2018 | Amman, MedalBronze | 2019 | Tashkent
+
+Asian Games
+Kumite 84 kg	MedalGold | 2014 | Incheon, MedalGold | 2018 | Jakarta, MedalSilver | 2010 | Guangzhou
+
+World Games
+Kumite 84 kg 	MedalGold | 2013 | Cali
+Kumite 84 kg	MedalSilver | 2017 | Wrocław
+
+World Combat Games
+Kumite 84 kg	MedalSilver | 2013 | Saint Petersburg
+
+",1001,"    WITH ImprovedEvents AS (
+        SELECT f.format_id
+        FROM Athlete a
+        JOIN Tournament t ON a.athlete_id = t.athlete_id
+        JOIN Format f ON t.tournament_id = f.tournament_id
+        JOIN Medal m1 ON f.format_id = m1.format_id
+        JOIN Medal m2 ON f.format_id = m2.format_id
+        WHERE a.name = 'Ryutaro Araga'
+        AND m1.year < m2.year
+        AND (
+            CASE m2.type
+            WHEN 'MedalGold' THEN 3
+            WHEN 'MedalSilver' THEN 2
+            WHEN 'MedalBronze' THEN 1
+            ELSE 0
+            END
+        ) > (
+            CASE m1.type
+            WHEN 'MedalGold' THEN 3
+            WHEN 'MedalSilver' THEN 2
+            WHEN 'MedalBronze' THEN 1
+            ELSE 0
+            END
+        )
+    )
+    SELECT COUNT(*) AS event_count FROM ImprovedEvents; "
+"How many times did Hugo Calderano win a gold medal in an event, followed by any other medal in the same event?",2,"Hugo Calderano
+
+Personal Information
+Birth Date
+1996-6-22	
+
+Birth Place
+Rio de Janeiro	
+
+Height
+182 cm	
+
+Weight
+74  kg	
+
+Country Representing: BRA
+WTT Cup Finals
+Singles	MedalBronze | 2021 | Singapore
+
+ITTF World Tour Grand Finals
+Singles	MedalBronze | 2018 | Incheon
+
+Pan American Games
+Singles	MedalGold | 2015 | Toronto, MedalGold | 2019 | Lima, MedalGold | 2023 | Santiago
+Team	MedalGold | 2015 | Toronto, MedalGold | 2023 | Santiago, MedalBronze | 2019 | Lima
+Doubles	MedalGold | 2019 | Lima, MedalSilver | 2023 | Santiago
+
+Pan American Championships
+Singles	MedalGold | 2017 | Cartagena de Indias, MedalGold | 2021 | Lima, MedalGold | 2022 | Santiago, MedalGold | 2023 | Havana
+Team	MedalGold | 2017 | Cartagena de Indias, MedalGold | 2021 | Lima, MedalGold | 2022 | Santiago, MedalGold | 2023 | Havana
+
+Pan American Cup
+Singles	MedalGold | 2018 | Asunción, MedalGold | 2019 | Guaynabo, MedalGold | 2020 | Guaynabo
+
+Latin American Championships
+Singles	MedalGold | 2014 | Santo Domingo, MedalGold | 2015 | Buenos Aires, MedalGold | 2016 | San Juan
+Team	MedalGold | 2014 | Santo Domingo, MedalGold | 2015 | Buenos Aires, MedalGold | 2016 | San Juan
+Doubles	MedalSilver | 2014 | Santo Domingo
+
+Latin American Table Tennis Cup
+Singles	MedalGold | 2016 | Guatemala City
+
+Youth Olympic Games
+Singles	MedalBronze | 2014 | Nanjing
+
+",1002,"    SELECT
+        COUNT(*) AS count
+    FROM (
+        SELECT
+            a.athlete_id,
+            f.format_id,
+            m.year,
+            m.type,
+            LEAD(m.year) OVER (PARTITION BY f.format_id ORDER BY m.year) AS next_year,
+            LEAD(m.type) OVER (PARTITION BY f.format_id ORDER BY m.year) AS next_medal_type
+        FROM Athlete a
+        JOIN Tournament t ON a.athlete_id = t.athlete_id
+        JOIN Format f ON t.tournament_id = f.tournament_id
+        JOIN Medal m ON f.format_id = m.format_id
+        WHERE a.name = 'Hugo Calderano'
+    ) AS m
+    JOIN Format f ON m.format_id = f.format_id
+    JOIN Tournament t ON f.tournament_id = t.tournament_id
+    JOIN Medal m_next ON f.format_id = m_next.format_id AND m.next_year = m_next.year
+    WHERE m.type = 'MedalGold' AND m.next_medal_type IN ('MedalSilver', 'MedalBronze');"
+Determine the number of instances where Daiya Seto won a medal of a different color than the previous iteration of the same event.,12,"Daiya Seto
+
+Personal Information
+Coach
+Takayuki Umehara 	
+
+Birth Date
+1994-5-24	
+
+Birth Place
+Moroyama, Saitama	
+
+Height
+1.74 m	
+
+Weight
+75& kg	
+
+Country Representing: JPN
+Olympic Games
+400 m medley	MedalBronze | 2016 | SOG
+
+World Championships (LC)
+400 m medley	MedalGold | 2013 | Barcelona, MedalGold | 2015 | Kazan, MedalGold | 2019 | Gwangju, MedalBronze | 2017 | Budapest, MedalBronze | 2023 | Fukuoka, MedalBronze | 2024 | Doha
+200 m medley	MedalGold | 2019 | Gwangju, MedalBronze | 2022 | Budapest
+200 m butterfly	MedalSilver | 2019 | Gwangju, MedalBronze | 2017 | Budapest
+
+World Championships (SC)
+400 m medley	MedalGold | 2012 | Istanbul, MedalGold | 2014 | Doha, MedalGold | 2016 | Windsor, MedalGold | 2018 | Hangzhou, MedalGold | 2021 | Abu Dhabi, MedalGold | 2022 | Melbourne
+200 m butterfly	MedalGold | 2018 | Hangzhou, MedalSilver | 2014 | Doha, MedalSilver | 2022 | Melbourne, MedalBronze | 2016 | Windsor
+200 m medley	MedalGold | 2021 | Abu Dhabi, MedalSilver | 2012 | Istanbul, MedalBronze | 2014 | Doha, MedalBronze | 2016 | Windsor
+200 m breaststroke	MedalGold | 2022 | Melbourne
+100 m medley	MedalSilver | 2016 | Windsor
+4x200 m freestyle	MedalSilver | 2016 | Windsor
+
+Pan Pacific Championships
+200 m butterfly	MedalGold | 2014 | Gold Coast, MedalGold | 2018 | Tokyo
+400 m medley	MedalBronze | 2018 | Tokyo
+200 m medley	MedalBronze | 2014 | Gold Coast
+
+Asian Games
+200 m butterfly	MedalGold | 2014 | Incheon, MedalGold | 2018 | Jakarta
+4x200 m freestyle	MedalGold | 2014 | Incheon
+400 m medley	MedalGold | 2018 | Jakarta, MedalSilver | 2022 | Hangzhou, MedalBronze | 2014 | Incheon
+200 m medley	MedalBronze | 2022 | Hangzhou
+
+Asian Championships
+400 m medley	MedalGold | 2016 | Tokyo
+4x200 m freestyle	MedalGold | 2016 | Tokyo
+200 m butterfly	MedalSilver | 2016 | Tokyo
+200 m medley	MedalSilver | 2016 | Tokyo
+
+Summer Universiade
+400 m medley	MedalGold | 2017 | Taipei
+4x200 m freestyle	MedalGold | 2017 | Taipei
+200 m medley	MedalSilver | 2017 | Taipei
+200 m butterfly	MedalSilver | 2017 | Taipei
+
+Junior Pan Pacific Championships
+4x200 m freestyle	MedalGold | 2012 | Honolulu
+4x100 m medley	MedalGold | 2012 | Honolulu
+200 m freestyle	MedalSilver | 2012 | Honolulu
+100 m butterfly	MedalSilver | 2012 | Honolulu
+200 m medley	MedalSilver | 2012 | Honolulu
+4x100 m freestyle	MedalBronze | 2012 | Honolulu
+
+",1003,"    WITH Medals AS (
+        SELECT
+            t.name AS tournament_name,
+            f.name AS format_name,
+            m.year,
+            m.type AS medal_type,
+            LAG(m.type) OVER (
+                PARTITION BY t.name, f.name
+                ORDER BY m.year
+            ) AS previous_medal_type,
+            LAG(m.year) OVER (
+                PARTITION BY t.name, f.name
+                ORDER BY m.year
+            ) AS previous_year
+        FROM Athlete a
+        JOIN Tournament t ON a.athlete_id = t.athlete_id
+        JOIN Format f ON t.tournament_id = f.tournament_id
+        JOIN Medal m ON f.format_id = m.format_id
+        WHERE a.name = 'Daiya Seto'
+    )
+    SELECT
+        COUNT(*) AS count
+    FROM Medals
+    WHERE previous_medal_type IS NOT NULL
+    AND medal_type <> previous_medal_type;"
+"Count the events where the Ranomi Kromowidjojo won a gold medal in one iteration, win a lower medal in the next iteration, and then win a gold medal again in the following iteration?",3,"Ranomi Kromowidjojo
+
+Personal Information
+Birth Date
+1990-8-20	
+
+Birth Place
+Sauwerd	
+
+Height
+1.80 m	
+
+Weight
+67  kg	
+
+Coach
+	
+
+Country Representing: NED
+Olympic Games
+4x100 m freestyle	MedalGold | 2008 | Beijing, MedalSilver | 2012 | London
+50 m freestyle	MedalGold | 2012 | London
+100 m freestyle	MedalGold | 2012 | London
+
+World Championships (LC)
+4x100 m freestyle	MedalGold | 2009 | Rome, MedalGold | 2011 | Shanghai, MedalSilver | 2015 | Kazan, MedalBronze | 2007 | Melbourne, MedalBronze | 2013 | Barcelona, MedalBronze | 2017 | Budapest
+50 m freestyle	MedalGold | 2013 | Barcelona, MedalSilver | 2011 | Shanghai, MedalSilver | 2015 | Kazan, MedalSilver | 2017 | Budapest
+4x100 m mixed freestyle	MedalSilver | 2015 | Kazan, MedalSilver | 2017 | Budapest
+50 m butterfly	MedalSilver | 2017 | Budapest, MedalSilver | 2019 | Gwangju, MedalBronze | 2013 | Barcelona
+100 m freestyle	MedalBronze | 2011 | Shanghai, MedalBronze | 2013 | Barcelona
+
+World Championships (SC)
+4x200 m freestyle 	MedalGold | 2008 | Manchester
+50 m freestyle	MedalGold | 2010 | Dubai, MedalGold | 2014 | Doha, MedalGold | 2016 | Windsor, MedalGold | 2018 | Hangzhou, MedalSilver | 2021 | Abu Dhabi
+100 m freestyle	MedalGold | 2010 | Dubai, MedalGold | 2018 | Hangzhou, MedalSilver | 2016 | Windsor, MedalBronze | 2014 | Doha
+4x100 m freestyle	MedalGold | 2010 | Dubai, MedalGold | 2014 | Doha, MedalSilver | 2018 | Hangzhou, MedalBronze | 2016 | Windsor
+4x50 m freestyle	MedalGold | 2014 | Doha, MedalSilver | 2016 | Windsor, MedalSilver | 2018 | Hangzhou, MedalBronze | 2021 | Abu Dhabi
+4x200 m freestyle	MedalGold | 2014 | Doha
+50 m butterfly	MedalGold | 2018 | Hangzhou
+4x50 m mixed freestyle	MedalSilver | 2016 | Windsor, MedalSilver | 2018 | Hangzhou, MedalSilver | 2021 | Abu Dhabi
+4x50 m mixed medley	MedalSilver | 2018 | Hangzhou
+4x50 m medley	MedalBronze | 2018 | Hangzhou, MedalBronze | 2021 | Abu Dhabi
+
+European Championships (LC)
+4x100 m freestyle 	MedalGold | 2008 | Eindhoven, MedalSilver | 2006 | Budapest
+50 m freestyle	MedalGold | 2016 | London, MedalGold | 2020 | Budapest, MedalBronze | 2018 | Glasgow
+4x100 m freestyle	MedalGold | 2016 | London, MedalSilver | 2018 | Glasgow, MedalSilver | 2020 | Budapest
+4x100 m mixed freestyle	MedalGold | 2016 | London, MedalSilver | 2018 | Glasgow, MedalSilver | 2020 | Budapest
+50 m butterfly	MedalGold | 2020 | Budapest
+100 m freestyle	MedalSilver | 2016 | London
+4x100 m mixed medley	MedalSilver | 2020 | Budapest
+
+European Championships (SC)
+4x50 m freestyle 	MedalGold | 2007 | Debrecen, MedalGold | 2008 | Rijeka, MedalGold | 2009 | Istanbul, MedalGold | 2010 | Eindhoven, MedalSilver | 2015 | Netanya
+4x50 m medley 	MedalGold | 2008 | Rijeka, MedalGold | 2009 | Istanbul, MedalGold | 2010 | Eindhoven, MedalGold | 2015 | Netanya
+50 m freestyle 	MedalGold | 2010 | Eindhoven, MedalGold | 2013 | Herning, MedalGold | 2015 | Netanya, MedalSilver | 2009 | Istanbul
+100 m freestyle 	MedalGold | 2010 | Eindhoven, MedalGold | 2013 | Herning, MedalSilver | 2009 | Istanbul, MedalSilver | 2015 | Netanya, MedalBronze | 2008 | Rijeka
+100 m freestyle	MedalGold | 2017 | Copenhagen
+50 m butterfly	MedalGold | 2017 | Copenhagen
+4x50 m freestyle	MedalGold | 2017 | Copenhagen
+4x50 m mixed freestyle	MedalGold | 2017 | Copenhagen, MedalBronze | 2013 | Herning
+4x50 m mixed medley	MedalGold | 2017 | Copenhagen
+50 m freestyle	MedalSilver | 2017 | Copenhagen
+4x50 m mixed freestyle 	MedalBronze | 2015 | Netanya
+
+",1004,"WITH Medals AS (
+        SELECT
+            t.name AS tournament_name,
+            f.name AS format_name,
+            m.year,
+            m.type AS medal_type,
+            ROW_NUMBER() OVER (
+                PARTITION BY t.name, f.name
+                ORDER BY m.year
+            ) AS rn
+        FROM Athlete a
+        JOIN Tournament t ON a.athlete_id = t.athlete_id
+        JOIN Format f ON t.tournament_id = f.tournament_id
+        JOIN Medal m ON f.format_id = m.format_id
+        WHERE a.name = 'Ranomi Kromowidjojo'
+    ),
+    Sequences AS (
+        SELECT
+            pm1.tournament_name,
+            pm1.format_name,
+            pm1.year AS first_gold_year,
+            pm1.medal_type AS first_gold_medal,
+            pm2.year AS lower_medal_year,
+            pm2.medal_type AS lower_medal,
+            pm3.year AS second_gold_year,
+            pm3.medal_type AS second_gold_medal
+        FROM Medals pm1
+        JOIN Medals pm2 ON
+            pm1.tournament_name = pm2.tournament_name AND
+            pm1.format_name = pm2.format_name AND
+            pm1.rn + 1 = pm2.rn
+        JOIN Medals pm3 ON
+            pm2.tournament_name = pm3.tournament_name AND
+            pm2.format_name = pm3.format_name AND
+            pm2.rn + 1 = pm3.rn
+        WHERE
+            pm1.medal_type = 'MedalGold' AND
+            pm2.medal_type IN ('MedalSilver', 'MedalBronze') AND
+            pm3.medal_type = 'MedalGold'
+    )
+    SELECT
+        COUNT(*) AS count
+    FROM Sequences;"
+"Identify the number of times Deepika Kumari won medals in three consecutive iterations of an event, with the sequence being a bronze, followed by silver, and then gold medal.",2,"Deepika Kumari
+
+Personal Information
+Birth Date
+1994-06-13	
+
+Birth Place
+Ratu Chatti, 	
+
+Height
+
+Weight
+56 kg	
+
+Coach
+	
+
+Country Representing: IND
+World Championships
+Women's Team	MedalSilver | 2011 | Torino, MedalSilver | 2015 | Copenhagen
+
+Asian Championships
+Mixed Team	MedalBronze | 2019 | Bangkok, MedalBronze | 2015 | Bangkok, MedalGold | 2013 | Taipei
+Team	MedalBronze | 2019 | Bangkok
+Recurve Team	MedalSilver | 2015 | Bangkok, MedalSilver | 2011 | Tehran
+
+World Cup
+Women's Individual 	MedalGold | 2021 | Guatemala City
+
+Commonwealth Games
+Recurve individual	MedalGold | 2010 | Delhi
+Recurve team	MedalGold | 2010 | Delhi
+
+Asian Games
+Recurve team	MedalBronze | 2010 | Guangzhou
+
+",1006,"    WITH Medals AS (
+        SELECT
+            t.name AS tournament_name,
+            f.name AS format_name,
+            m.year,
+            m.type AS medal_type,
+            ROW_NUMBER() OVER (
+                PARTITION BY t.name, f.name
+                ORDER BY m.year
+            ) AS rn
+        FROM Athlete a
+        JOIN Tournament t ON a.athlete_id = t.athlete_id
+        JOIN Format f ON t.tournament_id = f.tournament_id
+        JOIN Medal m ON f.format_id = m.format_id
+        WHERE a.name = 'Deepika Kumari'
+    ),
+    Sequences AS (
+        SELECT
+            pm1.tournament_name,
+            pm1.format_name,
+            pm1.year AS bronze_year,
+            pm1.medal_type AS bronze_medal,
+            pm2.year AS silver_year,
+            pm2.medal_type AS silver_medal,
+            pm3.year AS gold_year,
+            pm3.medal_type AS gold_medal
+        FROM Medals pm1
+        JOIN Medals pm2 ON
+            pm1.tournament_name = pm2.tournament_name AND
+            pm1.format_name = pm2.format_name AND
+            pm1.rn + 1 = pm2.rn
+        JOIN Medals pm3 ON
+            pm2.tournament_name = pm3.tournament_name AND
+            pm2.format_name = pm3.format_name AND
+            pm2.rn + 1 = pm3.rn
+        WHERE
+            pm1.medal_type = 'MedalBronze' AND
+            pm2.medal_type = 'MedalSilver' AND
+            pm3.medal_type = 'MedalGold'
+    )
+    SELECT
+        COUNT(*) AS count
+    FROM Sequences;
+"
+"What is the shortest time span (in years) within which Nouran Gohar won gold, silver, and bronze medals in the same format across any tournament?",8,"Nouran Gohar
+
+Personal Information
+Birth Date
+1997-9-30	
+
+Birth Place
+Egypt	
+
+Height
+167 cm	
+
+Weight
+59  kg	
+
+Coach
+Omar Abd El Aziz, Karim Darwish	
+
+Years Active
+
+Date Of Highest Ranking
+October 2020	
+
+Country Representing: EGY
+World Championships
+Singles 	MedalGold | 2024 | Cairo, MedalSilver | 2022 | Cairo, MedalSilver | 2023 | Chicago, MedalBronze | 2015 | Kuala Lumpur, MedalBronze | 2016 | El Gouna
+
+World Team Championships
+Team	MedalGold | 2016 | Issy, MedalGold | 2018 | Dalian, MedalGold | 2022 | Cairo
+
+",1016,"WITH MedalData AS (
+        SELECT
+            t.name AS tournament_name,
+            f.name AS format_name,
+            m.year,
+            m.type AS medal_type
+        FROM Athlete a
+        JOIN Tournament t ON a.athlete_id = t.athlete_id
+        JOIN Format f ON t.tournament_id = f.tournament_id
+        JOIN Medal m ON f.format_id = m.format_id
+        WHERE a.name = 'Nouran Gohar'
+        AND m.type IN ('MedalGold', 'MedalSilver', 'MedalBronze')
+    ),
+    Sequences AS (
+        SELECT
+            b.tournament_name,
+            b.format_name,
+            b.year AS bronze_year,
+            s.year AS silver_year,
+            g.year AS gold_year,
+            g.year - b.year AS time_span
+        FROM MedalData b
+        JOIN MedalData s ON
+            b.tournament_name = s.tournament_name AND
+            b.format_name = s.format_name AND
+            b.medal_type = 'MedalBronze' AND
+            s.medal_type = 'MedalSilver' AND
+            b.year < s.year
+        JOIN MedalData g ON
+            s.tournament_name = g.tournament_name AND
+            s.format_name = g.format_name AND
+            g.medal_type = 'MedalGold' AND
+            s.year < g.year
+    ),
+    MinTimeSpan AS (
+        SELECT MIN(time_span) AS shortest_time_span FROM Sequences
+    )
+    SELECT shortest_time_span FROM MinTimeSpan;"

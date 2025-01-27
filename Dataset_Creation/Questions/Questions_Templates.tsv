@@ -1,0 +1,103 @@
+Type	Question
+1	How many <Tournament_Name> <Medal_Type> did <Player_Name> win ?
+2	How many medals did <Player_Name> win in the <Year + Tournament_Name> ?
+3	List all the formats in which <Player_Name> has won medals in ?
+4	Which formats did <Player_Name> win medals in the <Year + Tournament_Name> ?
+5	In which format(s) is <Player_Name> most succesfull ?
+6	Which city has <Player_Name> won the most medals in ?
+7	Which year has <Player_Name> won the most medals in ?
+8	Which format(s) did <Player_Name> win his/her most recent medal ?
+9	At what age did <Player_Name> win his/her first <Tournament_Name> <Medal_Type> ?
+10	In which format does <Player_Name> have more medals in : <Tournament_Format1> vs <Tournament_Format2> Discard
+11	How many more <Tournament_Name1> <Medal_Type> does <Player_Name> have as compared to <Medal_Type> in <Tournament_Name2> ?
+12	How many International medals did <Player_Name> win throughout his/her career?
+13	How many International <Medal_Type> did <Player_Name> win throughout his/her career?
+14	How many times has <Player_Name> won medals in <Tournament_Name> ?
+15	Which format has <Player_Name> won the most medals in ?
+16	Which format is <Player_Name> most successful in ?
+17	How many <Medal_Type> did <Player_Name> win between <Year1> and <Year2> ?
+18	How old was <Player_Name> when he/she won his/her first <Tournament_Name> medal ?
+19	Which city did <Player_Name> win his/her first International <Medal_Type> ?
+20	How many tournaments has <Player_Name> taken part in ?
+21	Which tournament(s) has <Player_Name> won the most <Medal_Type> in ?
+22	Which tournament(s) has <Player_Name> won the most Medals in ?
+23	Which tournament did <Player_Name> win more medals in: <Tournament_Name1> or <Tournament_Name2> ? Discard
+24	Which tournament did <Player_Name> win more <Medal_Type> in: <Tournament_Name1> or <Tournament_Name2> ? Discard
+25	How many years after winning the First <Tournament_Name> medal; did <Player_Name> win his/her Second <Tournament_Name> medal ? Discard
+26	Did <Player_Name> win a <Medal_Type> in the <Year + Tournament_Name> ?
+27	How many medals did <Player_Name> win in the <Tournament_Format + Tournament_Name> ?
+28	Did <Player_Name> defend his/her medal in the <Year + Tournament_Format + Tournament_Name> ?
+29	In which event did <Player_Name> win his/her first <Medal_Type> at a major championship?
+30	In which year did <Player_Name> win his/her first <Medal_Type> in the <Tournament_Format + Tournament_Name>?
+31	Has <Player_Name> ever won a <Medal_Type> in the <Tournament_Format> at a major championship?
+32	Has <Player_Name> ever won a <Medal_Type> in the <Tournament_Name>?
+33	Which Tournament did <Player_Name> win his/her most recent medal ?
+34	Which city did <Player_Name> win his/her most recent medal ?
+35	In which city did <Player_Name> win his/her first <Tournament_Name> <Medal_Type> ?
+36	At what age did <Player_Name> win his/her most recent <Tournament_Name> <Medal_Type> ?
+37	How many medals has <Player_Name> won for his/her country ?
+38	In which year(s) did <Player_Name> win medals in the <Tournament_Name> ?
+39	Which was the most current medal win for <Player_Name> ?
+40	How many <Tournament_Name> appearances/wins does <Player_Name> have ?
+41	List all the cities that <Player_Name> has played in the order of the most medals won ?
+42	In which city has <Player_Name> won more medals in: <City1> or <City2> ? Discard
+43	In Which city has <Player_Name> won the most international medals ?
+44	Which was the most successful year for <Player_Name> in terms of highest Gold Medal wins?
+45	How many international medals has <Player_Name> won in <City_Name> ?
+46	Did <Player_Name> succesfully defend his/her title in the <Year + Tournament_Name> ?
+47	Which country does <Player_Name> represesnt ?
+48	Did <Player_Name> win a medal in the <City + Tournament_Name> ?
+49	How many medals did <Player_Name> win in the <City + Tournament_Name> ?
+50	How many <Medal_Type> did <Player_Name> win in the <City + Tournament_Name> ?
+51	In which year did <Player_Name> win medal(s) in the <City + Tournament_Name> ?
+52	How many International medals did <Player_Name> win in the <Year> ?
+53	How many International <Medal_Type> did <Player_Name> win in the <Year> ?
+54	Did <Player_Name> win international medals in the <Year> ?
+55	What is the average number of medals won by <Player_Name> in one year ?
+56	How old was <Player_Name> when he won he won a medal in <Year + Tournament_Name> ?
+57	How many medals did <Player_Name> win in his early twenties that is from the age of 20 to 23 ?
+58	How many medals did <Player_Name> win in his mid twenties that is from the age of 24 to 27 ?
+59	How many medals did <Player_Name> win in his late twenties that is from the age of 28 to 29 ?
+60	How old was <Player_Name> when he/she won their first international medal ?
+61	How many times did <Player_Name> successfully defend his/her title at the <Tournament_Format + Tournament_Name>?
+62	How old was <Player_Name> when he/she successfully defended his/her title at the <Tournament_Format + Tournament_Name> for the first time ?
+63	How old was <Player_Name> when he/she won their first international medal in <City_Name> ?
+64	Does <Player_Name> have more medals in their twenties as compared to their thirties ?
+65	In which year(s) did <Player_Name> win the highest number of medals during their career ?
+66	In which year(s) did <Player_Name> win the lowest number of medals during their career ?
+67	How many International Bronze, Silver and Gold medals does <Player_Name> have ?
+68	Does <Player_Name> have more <Medal_Type1> than <Medal_Type2> ?
+69	Does <Player_Name> have more <Medal_Type1> than <Medal_Type2> in <Tournament_Name> ?
+70	Does <Player_Name> have more <Medal_Type1> than <Medal_Type2> in <Tournament_Format> ?
+71	Which medal type does <Player_Name> has won the most medals in ?
+72	How many medals did <Player_Name> win in the 2 years after <Year> ?
+73	How many years passed between <Player_Name>'s first and most recent International medal ?
+74	How many times did <Player_Name> win an International medal in the <Tournament_Name> before <Year> ?
+75	In which format did <Player_Name> win his/her first International medal ?
+76	In which tournament did <Player_Name> win his/her first International medal ?
+77	In which city did <Player_Name> win his/her first International medal ?
+78	In which year did <Player_Name> win his/her first International medal ?
+79	How many medals did <Player_Name> win in <Continent_Name> ?
+80	How many medals did <Player_Name> win in <Country_Name> ?
+81	In which year did <Player_Name> win his/her first International medal in <Continent_Name> ?
+82	In which year did <Player_Name> win his/her first International medal in <Country_Name> ?
+83	How old was <Player_Name> when he won his/her first International medal in <Continent_Name> ?
+84	How old was <Player_Name> when he won his/her first International medal in <Country_Name> ?
+85	In which subcontinent has <Player_Name> won the highest number of medals ?
+86	How many medals did <Player_Name> win from <Year> to present ?
+87	How old is <Player_Name> ?
+88	Where was <Player_Name> born ?
+89	What is <Player_Name>'s height ?
+90	What is <Player_Name>'s weight ?
+91	In which year did <Player_Name> win his/her first medal in the <Tournament_Format + Tournament_Name> ?
+92	Did <Player_Name> win a <Medal_Type> in the <City + Tournament_Name> ?
+93	Did <Player_Name> win international <Medal_Type> medals in the year <Year> ?
+94	Did <Player_Name> win international medals in the 2050 ?
+95	How many medals did <Player_Name> win in his/her twenties ?
+96	How many medals did <Player_Name> win in his/her thirties ?
+1001	Count the different events in which <Player_Name> improved his medal color in any later iterations of any tournament, including non-consecutive cycles
+1002	How many times did <Player_Name> win a gold medal in an event, followed by any other medal in the same event?
+1003	Determine the number of instances where <Player_Name> won a medal of a different color than the previous iteration of the same event.
+1004	Count the events where the <Player_Name> won a gold medal in one iteration, win a lower medal in the next iteration, and then win a gold medal again in the following iteration?
+1006	Identify the number of times <Player_Name> won medals in three consecutive iterations of an event, with the sequence being a bronze, followed by silver, and then gold medal.
+1016	What is the shortest time span (in years) within which <Player_Name> won gold, silver, and bronze medals in the same format across any tournament?

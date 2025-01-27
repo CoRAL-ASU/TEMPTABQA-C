@@ -1,0 +1,672 @@
+Types	SQL
+1	"SELECT COUNT(*) AS silver_medal_count
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = {player}
+  AND t.name = {tournament}
+  AND m.type = {medal};"
+3	"SELECT DISTINCT f.name AS format_name
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = {player};"
+5	"SELECT f.name AS format_name
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = {player}
+GROUP BY f.name
+HAVING COUNT(m.medal_id) = (
+    SELECT MAX(medal_count)
+    FROM (
+        SELECT COUNT(m.medal_id) AS medal_count
+        FROM Medal m
+        JOIN Format f ON m.format_id = f.format_id
+        JOIN Tournament t ON f.tournament_id = t.tournament_id
+        JOIN Athlete a ON t.athlete_id = a.athlete_id
+        WHERE a.name = {player}
+        GROUP BY f.name
+    ) AS medal_counts
+);"
+13	"SELECT COUNT(*) AS silver_medal_count
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = {player}
+  AND m.type = {medal};"
+14	"SELECT COUNT(*) AS medal_count
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = {player}
+  AND t.name = {tournament};"
+19	"SELECT DISTINCT m.location
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = {player}
+  AND m.type = 'MedalBronze'
+  AND m.year = (
+      SELECT MIN(m2.year)
+      FROM Medal m2
+      JOIN Format f2 ON m2.format_id = f2.format_id
+      JOIN Tournament t2 ON f2.tournament_id = t2.tournament_id
+      JOIN Athlete a2 ON t2.athlete_id = a2.athlete_id
+      WHERE a2.name = {player}
+        AND m2.type = 'MedalBronze'
+  );"
+21	"SELECT t.name AS tournament_name, m.year
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = {player}
+  AND m.type = 'MedalBronze'
+GROUP BY t.name, m.year
+HAVING COUNT(m.medal_id) = (
+    SELECT MAX(bronze_medal_count)
+    FROM (
+        SELECT COUNT(m2.medal_id) AS bronze_medal_count
+        FROM Medal m2
+        JOIN Format f2 ON m2.format_id = f2.format_id
+        JOIN Tournament t2 ON f2.tournament_id = t2.tournament_id
+        JOIN Athlete a2 ON t2.athlete_id = a2.athlete_id
+        WHERE a2.name = {player}
+          AND m2.type = 'MedalBronze'
+        GROUP BY t2.name, m2.year
+    ) AS medal_counts
+);
+"
+22	"WITH medal_counts AS (
+    SELECT t.name AS tournament_name, m.year, COUNT(m.medal_id) AS total_medal_count
+    FROM Medal m
+    JOIN Format f ON m.format_id = f.format_id
+    JOIN Tournament t ON f.tournament_id = t.tournament_id
+    JOIN Athlete a ON t.athlete_id = a.athlete_id
+    WHERE a.name = {player}
+    GROUP BY t.name, m.year
+)
+SELECT tournament_name, year
+FROM medal_counts
+WHERE total_medal_count = (
+    SELECT MAX(total_medal_count)
+    FROM medal_counts
+);"
+27	"SELECT COUNT(m.medal_id) AS total_medals
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = {player}
+  AND t.name = {tournament}
+  AND f.name LIKE '%Team%';"
+30	"SELECT MIN(m.year) AS first_gold_medal_year
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = {player}
+  AND m.type = 'MedalGold'
+  AND t.name = {tournament}
+  AND f.name LIKE '%Team%';"
+32	"SELECT CASE 
+    WHEN COUNT(*) > 0 THEN 'Yes'
+    ELSE 'No'
+END AS has_won_bronze
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = {player}
+  AND m.type = 'MedalBronze'
+  AND t.name = 'Olympic Games';
+
+"
+34	"SELECT DISTINCT m.location
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = {player}
+  AND m.year = (
+    SELECT MAX(m2.year)
+    FROM Medal m2
+    JOIN Format f2 ON m2.format_id = f2.format_id
+    JOIN Tournament t2 ON f2.tournament_id = t2.tournament_id
+    JOIN Athlete a2 ON t2.athlete_id = a2.athlete_id
+    WHERE a2.name = {player}
+  );"
+35	"SELECT DISTINCT m.location
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = {player}
+  AND m.type = 'MedalGold'
+  AND t.name = {tournament}
+  AND m.year = (
+    SELECT MIN(m2.year)
+    FROM Medal m2
+    JOIN Format f2 ON m2.format_id = f2.format_id
+    JOIN Tournament t2 ON f2.tournament_id = t2.tournament_id
+    JOIN Athlete a2 ON t2.athlete_id = a2.athlete_id
+    WHERE a2.name = {player}
+      AND m2.type = 'MedalGold'
+      AND t2.name = {tournament}
+  );
+"
+36	"SELECT (m.year - pi.birth_year) AS age_at_gold_medal
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+JOIN PersonalInformation pi ON a.athlete_id = pi.athlete_id
+WHERE a.name = {player}
+  AND m.type = 'MedalGold'
+  AND t.name = {tournament}
+  AND m.year = (
+    SELECT MAX(m2.year)
+    FROM Medal m2
+    JOIN Format f2 ON m2.format_id = f2.format_id
+    JOIN Tournament t2 ON f2.tournament_id = t2.tournament_id
+    JOIN Athlete a2 ON t2.athlete_id = a2.athlete_id
+    WHERE a2.name = {player}
+      AND m2.type = 'MedalGold'
+      AND t2.name = {tournament}
+  );"
+38	"SELECT DISTINCT m.year
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = {player}
+  AND t.name = {tournament};"
+39	"SELECT m.type, m.year, m.location, f.name AS format_name, t.name AS tournament_name
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = {player}
+  AND m.year = (
+    SELECT MAX(m2.year)
+    FROM Medal m2
+    JOIN Format f2 ON m2.format_id = f2.format_id
+    JOIN Tournament t2 ON f2.tournament_id = t2.tournament_id
+    JOIN Athlete a2 ON t2.athlete_id = a2.athlete_id
+    WHERE a2.name = {player}
+  );
+"
+40	"SELECT 
+  COUNT(m.medal_id) AS total_wins
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = {player}
+  AND t.name = {tournament}
+  AND m.type = 'MedalGold';
+"
+43	"SELECT DISTINCT m.location
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = {player}
+  AND m.location IN (
+    SELECT m.location
+    FROM Medal m
+    JOIN Format f ON m.format_id = f.format_id
+    JOIN Tournament t ON f.tournament_id = t.tournament_id
+    JOIN Athlete a ON t.athlete_id = a.athlete_id
+    WHERE a.name = {player}
+    GROUP BY m.location
+    HAVING COUNT(m.medal_id) = (
+      SELECT MAX(medal_count)
+      FROM (
+        SELECT COUNT(m.medal_id) AS medal_count
+        FROM Medal m
+        JOIN Format f ON m.format_id = f.format_id
+        JOIN Tournament t ON f.tournament_id = t.tournament_id
+        JOIN Athlete a ON t.athlete_id = a.athlete_id
+        WHERE a.name = {player}
+        GROUP BY m.location
+      ) AS location_medal_counts
+    )
+  );"
+44	"SELECT m.year
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = {player}
+  AND m.type = 'MedalGold'
+GROUP BY m.year
+HAVING COUNT(m.medal_id) = (
+  SELECT MAX(gold_medal_count)
+  FROM (
+    SELECT COUNT(m2.medal_id) AS gold_medal_count
+    FROM Medal m2
+    JOIN Format f2 ON m2.format_id = f2.format_id
+    JOIN Tournament t2 ON f2.tournament_id = t2.tournament_id
+    JOIN Athlete a2 ON t2.athlete_id = a2.athlete_id
+    WHERE a2.name = {player}
+      AND m2.type = 'MedalGold'
+    GROUP BY m2.year
+  ) AS yearly_gold_counts
+);"
+52	"SELECT COUNT(m.medal_id) AS total_medals
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = {player}
+  AND m.year = 2023;"
+53	"SELECT COUNT(m.medal_id) AS total_silver_medals
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = {player}
+  AND m.type = {medal}
+  AND m.year = 2020;"
+54	"SELECT CASE 
+    WHEN COUNT(m.medal_id) > 0 THEN 'Yes'
+    ELSE 'No'
+END AS won_medals
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = {player}
+  AND m.year = 2022;"
+55	"SELECT ROUND(AVG(medal_count)) AS average_medals_per_year
+FROM (
+    SELECT COUNT(m.medal_id) AS medal_count
+    FROM Medal m
+    JOIN Format f ON m.format_id = f.format_id
+    JOIN Tournament t ON f.tournament_id = t.tournament_id
+    JOIN Athlete a ON t.athlete_id = a.athlete_id
+    WHERE a.name = {player}
+    GROUP BY m.year
+) AS yearly_medals;
+"
+57	"SELECT COUNT(m.medal_id) AS total_medals
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+JOIN PersonalInformation pi ON a.athlete_id = pi.athlete_id
+WHERE a.name = {player}
+  AND (m.year - pi.birth_year) BETWEEN 20 AND 23;
+"
+58	"SELECT COUNT(m.medal_id) AS total_medals
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+JOIN PersonalInformation pi ON a.athlete_id = pi.athlete_id
+WHERE a.name = {player}
+  AND (m.year - pi.birth_year) BETWEEN 24 AND 27;"
+59	"SELECT COUNT(m.medal_id) AS total_medals
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+JOIN PersonalInformation pi ON a.athlete_id = pi.athlete_id
+WHERE a.name = {player}
+  AND (m.year - pi.birth_year) BETWEEN 28 AND 29;"
+60	"SELECT (m.year - pi.birth_year) AS age_at_first_medal
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+JOIN PersonalInformation pi ON a.athlete_id = pi.athlete_id
+WHERE a.name = {player}
+ORDER BY m.year ASC
+LIMIT 1;"
+64	"SELECT CASE 
+    WHEN SUM(CASE WHEN (m.year - pi.birth_year) BETWEEN 20 AND 29 THEN 1 ELSE 0 END) > 
+         SUM(CASE WHEN (m.year - pi.birth_year) BETWEEN 30 AND 39 THEN 1 ELSE 0 END)
+    THEN 'Yes'
+    ELSE 'No'
+END AS has_more_medals_in_twenties
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+JOIN PersonalInformation pi ON a.athlete_id = pi.athlete_id
+WHERE a.name = {player};
+"
+65	"SELECT m.year
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = {player}
+GROUP BY m.year
+ORDER BY COUNT(m.medal_id) DESC
+LIMIT 1;"
+66	"SELECT m.year
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = {player}
+GROUP BY m.year
+HAVING COUNT(m.medal_id) = (
+    SELECT MIN(medal_count)
+    FROM (
+        SELECT COUNT(m2.medal_id) AS medal_count
+        FROM Medal m2
+        JOIN Athlete a2 ON m2.format_id = a2.athlete_id
+        WHERE a2.name = {player}
+        GROUP BY m2.year
+    ) AS yearly_medal_counts
+);"
+68	"SELECT CASE 
+    WHEN SUM(CASE WHEN m.type = 'MedalBronze' THEN 1 ELSE 0 END) > 
+         SUM(CASE WHEN m.type = 'MedalGold' THEN 1 ELSE 0 END)
+    THEN 'Yes'
+    ELSE 'No'
+END AS has_more_bronze_than_gold
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = {player};"
+69	"SELECT CASE 
+    WHEN SUM(CASE WHEN m.type = 'MedalBronze' THEN 1 ELSE 0 END) > 
+         SUM(CASE WHEN m.type = 'MedalGold' THEN 1 ELSE 0 END)
+    THEN 'Yes'
+    ELSE 'No'
+END AS has_more_bronze_than_gold
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = {player}
+  AND t.name = {tournament};"
+70	"SELECT CASE 
+    WHEN SUM(CASE WHEN m.type = {medal} THEN 1 ELSE 0 END) > 
+         SUM(CASE WHEN m.type = 'MedalBronze' THEN 1 ELSE 0 END)
+    THEN 'Yes'
+    ELSE 'No'
+END AS has_more_silver_than_bronze
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = {player}
+  AND f.name LIKE '%Team%';"
+71	"SELECT m.type AS medal_type
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = {player}
+GROUP BY m.type
+ORDER BY COUNT(m.medal_id) DESC
+LIMIT 1;"
+73	"SELECT MAX(m.year) - MIN(m.year) AS years_passed
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = {player};"
+74	"SELECT COUNT(m.medal_id) AS total_medals
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = {player}
+  AND t.name = {tournament}
+  AND m.year < 2016;"
+75	"SELECT DISTINCT f.name AS format_name
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = {player}
+  AND m.year = (
+    SELECT MIN(m2.year)
+    FROM Medal m2
+    JOIN Athlete a2 ON m2.format_id = a2.athlete_id
+    WHERE a2.name = {player}
+  );"
+77	"SELECT DISTINCT m.location
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = {player}
+  AND m.year = (
+    SELECT MIN(m2.year)
+    FROM Medal m2
+    JOIN Athlete a2 ON m2.format_id = a2.athlete_id
+    WHERE a2.name = {player}
+  );"
+78	"SELECT MIN(m.year) AS first_medal_year
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+WHERE a.name = {player};"
+95	"SELECT COUNT(m.medal_id) AS total_medals
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+JOIN PersonalInformation pi ON a.athlete_id = pi.athlete_id
+WHERE a.name = {player}
+  AND (m.year - pi.birth_year) BETWEEN 20 AND 29;"
+96	"SELECT COUNT(m.medal_id) AS total_medals
+FROM Medal m
+JOIN Format f ON m.format_id = f.format_id
+JOIN Tournament t ON f.tournament_id = t.tournament_id
+JOIN Athlete a ON t.athlete_id = a.athlete_id
+JOIN PersonalInformation pi ON a.athlete_id = pi.athlete_id
+WHERE a.name = 'Dorothee Schneider'
+  AND (m.year - pi.birth_year) BETWEEN 30 AND 39;"
+1001	"    WITH ImprovedEvents AS (
+        SELECT f.format_id
+        FROM Athlete a
+        JOIN Tournament t ON a.athlete_id = t.athlete_id
+        JOIN Format f ON t.tournament_id = f.tournament_id
+        JOIN Medal m1 ON f.format_id = m1.format_id
+        JOIN Medal m2 ON f.format_id = m2.format_id
+        WHERE a.name = {player}
+        AND m1.year < m2.year
+        AND (
+            CASE m2.type
+            WHEN 'MedalGold' THEN 3
+            WHEN {medal} THEN 2
+            WHEN 'MedalBronze' THEN 1
+            ELSE 0
+            END
+        ) > (
+            CASE m1.type
+            WHEN 'MedalGold' THEN 3
+            WHEN {medal} THEN 2
+            WHEN 'MedalBronze' THEN 1
+            ELSE 0
+            END
+        )
+    )
+    SELECT COUNT(*) AS event_count FROM ImprovedEvents; "
+1002	"    SELECT
+        COUNT(*) AS count
+    FROM (
+        SELECT
+            a.athlete_id,
+            f.format_id,
+            m.year,
+            m.type,
+            LEAD(m.year) OVER (PARTITION BY f.format_id ORDER BY m.year) AS next_year,
+            LEAD(m.type) OVER (PARTITION BY f.format_id ORDER BY m.year) AS next_medal_type
+        FROM Athlete a
+        JOIN Tournament t ON a.athlete_id = t.athlete_id
+        JOIN Format f ON t.tournament_id = f.tournament_id
+        JOIN Medal m ON f.format_id = m.format_id
+        WHERE a.name = {player}
+    ) AS m
+    JOIN Format f ON m.format_id = f.format_id
+    JOIN Tournament t ON f.tournament_id = t.tournament_id
+    JOIN Medal m_next ON f.format_id = m_next.format_id AND m.next_year = m_next.year
+    WHERE m.type = 'MedalGold' AND m.next_medal_type IN ({medal}, 'MedalBronze');"
+1003	"    WITH Medals AS (
+        SELECT
+            t.name AS tournament_name,
+            f.name AS format_name,
+            m.year,
+            m.type AS medal_type,
+            LAG(m.type) OVER (
+                PARTITION BY t.name, f.name
+                ORDER BY m.year
+            ) AS previous_medal_type,
+            LAG(m.year) OVER (
+                PARTITION BY t.name, f.name
+                ORDER BY m.year
+            ) AS previous_year
+        FROM Athlete a
+        JOIN Tournament t ON a.athlete_id = t.athlete_id
+        JOIN Format f ON t.tournament_id = f.tournament_id
+        JOIN Medal m ON f.format_id = m.format_id
+        WHERE a.name = {player}
+    )
+    SELECT
+        COUNT(*) AS count
+    FROM Medals
+    WHERE previous_medal_type IS NOT NULL
+    AND medal_type <> previous_medal_type;"
+1004	"WITH Medals AS (
+        SELECT
+            t.name AS tournament_name,
+            f.name AS format_name,
+            m.year,
+            m.type AS medal_type,
+            ROW_NUMBER() OVER (
+                PARTITION BY t.name, f.name
+                ORDER BY m.year
+            ) AS rn
+        FROM Athlete a
+        JOIN Tournament t ON a.athlete_id = t.athlete_id
+        JOIN Format f ON t.tournament_id = f.tournament_id
+        JOIN Medal m ON f.format_id = m.format_id
+        WHERE a.name = {player}
+    ),
+    Sequences AS (
+        SELECT
+            pm1.tournament_name,
+            pm1.format_name,
+            pm1.year AS first_gold_year,
+            pm1.medal_type AS first_gold_medal,
+            pm2.year AS lower_medal_year,
+            pm2.medal_type AS lower_medal,
+            pm3.year AS second_gold_year,
+            pm3.medal_type AS second_gold_medal
+        FROM Medals pm1
+        JOIN Medals pm2 ON
+            pm1.tournament_name = pm2.tournament_name AND
+            pm1.format_name = pm2.format_name AND
+            pm1.rn + 1 = pm2.rn
+        JOIN Medals pm3 ON
+            pm2.tournament_name = pm3.tournament_name AND
+            pm2.format_name = pm3.format_name AND
+            pm2.rn + 1 = pm3.rn
+        WHERE
+            pm1.medal_type = 'MedalGold' AND
+            pm2.medal_type IN ({medal}, 'MedalBronze') AND
+            pm3.medal_type = 'MedalGold'
+    )
+    SELECT
+        COUNT(*) AS count
+    FROM Sequences;"
+1006	"    WITH Medals AS (
+        SELECT
+            t.name AS tournament_name,
+            f.name AS format_name,
+            m.year,
+            m.type AS medal_type,
+            ROW_NUMBER() OVER (
+                PARTITION BY t.name, f.name
+                ORDER BY m.year
+            ) AS rn
+        FROM Athlete a
+        JOIN Tournament t ON a.athlete_id = t.athlete_id
+        JOIN Format f ON t.tournament_id = f.tournament_id
+        JOIN Medal m ON f.format_id = m.format_id
+        WHERE a.name = {player}
+    ),
+    Sequences AS (
+        SELECT
+            pm1.tournament_name,
+            pm1.format_name,
+            pm1.year AS bronze_year,
+            pm1.medal_type AS bronze_medal,
+            pm2.year AS silver_year,
+            pm2.medal_type AS silver_medal,
+            pm3.year AS gold_year,
+            pm3.medal_type AS gold_medal
+        FROM Medals pm1
+        JOIN Medals pm2 ON
+            pm1.tournament_name = pm2.tournament_name AND
+            pm1.format_name = pm2.format_name AND
+            pm1.rn + 1 = pm2.rn
+        JOIN Medals pm3 ON
+            pm2.tournament_name = pm3.tournament_name AND
+            pm2.format_name = pm3.format_name AND
+            pm2.rn + 1 = pm3.rn
+        WHERE
+            pm1.medal_type = 'MedalBronze' AND
+            pm2.medal_type = {medal} AND
+            pm3.medal_type = 'MedalGold'
+    )
+    SELECT
+        COUNT(*) AS count
+    FROM Sequences;
+"
+1016	"WITH MedalData AS (
+        SELECT
+            t.name AS tournament_name,
+            f.name AS format_name,
+            m.year,
+            m.type AS medal_type
+        FROM Athlete a
+        JOIN Tournament t ON a.athlete_id = t.athlete_id
+        JOIN Format f ON t.tournament_id = f.tournament_id
+        JOIN Medal m ON f.format_id = m.format_id
+        WHERE a.name = {player}
+        AND m.type IN ('MedalGold', {medal}, 'MedalBronze')
+    ),
+    Sequences AS (
+        SELECT
+            b.tournament_name,
+            b.format_name,
+            b.year AS bronze_year,
+            s.year AS silver_year,
+            g.year AS gold_year,
+            g.year - b.year AS time_span
+        FROM MedalData b
+        JOIN MedalData s ON
+            b.tournament_name = s.tournament_name AND
+            b.format_name = s.format_name AND
+            b.medal_type = 'MedalBronze' AND
+            s.medal_type = {medal} AND
+            b.year < s.year
+        JOIN MedalData g ON
+            s.tournament_name = g.tournament_name AND
+            s.format_name = g.format_name AND
+            g.medal_type = 'MedalGold' AND
+            s.year < g.year
+    ),
+    MinTimeSpan AS (
+        SELECT MIN(time_span) AS shortest_time_span FROM Sequences
+    )
+    SELECT shortest_time_span FROM MinTimeSpan;"
