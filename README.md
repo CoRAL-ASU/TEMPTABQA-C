@@ -89,8 +89,8 @@ TEMPTABQA-C is a large-scale, semi-automatically generated dataset tailored for 
 
 ### Evaluation Metrics
 
-- **Exact Match Score (EMS)**: Measures the accuracy of predicted answers against ground truth.
-- **Relaxed Exact Match Score (REMS)**: A relaxed version of EMS, tolerating minor variations.
+- **Exact Match Score (EMS)**: Measures the accuracy of predicted answers against ground truth (0 or 1).
+- **Relaxed Exact Match Score (REMS)**: A relaxed version of EMS, tolerating partial accuracy (any number between 0 or 1).
 
 ### Baselines and Methods
 
@@ -101,7 +101,81 @@ TEMPTABQA-C is a large-scale, semi-automatically generated dataset tailored for 
    - Non-Adaptive Few-Shot: Static examples provided for all queries.
    - Adaptive Few-Shot: Examples dynamically selected based on query context.
 
+#### Prompts Used for Evaluation:
+
+1. **Zero-Shot Prompting Without Context**:
+
+   - The model generates answers based solely on the question without relying on any external data or context.
+
+2. **(Direct Prompting with CoT) Zero-Shot Prompting with Infobox Context**:
+
+   - The model answers questions by referring to an infobox, leveraging chain-of-thought reasoning for step-by-step answer generation.
+
+3. **(Direct Prompting with CoT) Static Few-Shot Prompting with Infobox Context**:
+
+   - Few-shot examples are statically selected, providing consistent infobox data and chain-of-thought reasoning templates to guide the model.
+
+4. **(Direct Prompting with CoT) Dynamic Few-Shot Prompting with Infobox Context**:
+
+   - Few-shot examples are dynamically selected based on the question context, ensuring the most relevant prompts for infobox-based reasoning.
+
+5. **Plan and Solve**:
+
+   - Encourages the model to generate a structured plan before solving the problem, improving reasoning consistency over complex tabular data.
+
+6. **Clear Reasoning**:
+
+   - The model breaks down questions into smaller sub-questions, solving them step-by-step to derive a final answer in a clear and systematic manner.
+
+7. **Faithful Chain-of-Thought (Faithful CoT)**:
+
+   - The model generates step-by-step reasoning in Python-like pseudocode, ensuring logical coherence before arriving at the answer.
+
+8. **Program of Thought (PoT)**:
+
+   - The model directly generates Python code as a response, executing it for accurate computation-based answers.
+
+9. **Zero-Shot SQL Generation**:
+
+   - The model generates SQL queries based on a schema without any prior examples, producing answers directly from structured database queries.
+
+10. **Static Few-Shot SQL Generation**:
+
+    - SQL queries are constructed using static few-shot examples, providing guidance for database interactions.
+
+11. **Dynamic Few-Shot SQL Generation**:
+
+    - SQL queries are dynamically generated using few-shot examples tailored to the specific query type, improving adaptability and precision.
+
+
+
+
+
 ## Results and Findings
+
+## Evaluation Results for GPT-4o
+
+| Output | Context | Method Type      | Metric | Original | CounterFact | Gap (Original - CounterFact) | Large | Small | Gap (Small - Large) | Easy | Medium | Hard |
+|--------|---------|------------------|--------|----------|-------------|------------------------------|-------|-------|---------------------|------|--------|------|
+| Text   | None    | -                | REMS   | 23.91    | 14.12       | 9.79                         | 23.84 | 25.79 | 1.95                | 28.67| 25.55  | 23.83|
+|        |         |                  | EMS    | 22.96    | 12.92       | 10.04                        | 23.05 | 24.68 | 1.63                | 27.26| 24.06  | 22.35|
+|        | Table   | zero shots       | REMS   | 52.14    | 41.18       | 10.96                        | 45.24 | 67.81 | 22.57               | 72.34| 59.43  | 52.90|
+|        |         |                  | EMS    | 49.70    | 39.29       | 10.41                        | 43.31 | 64.56 | 21.25               | 69.86| 57.20  | 49.02|
+|        |         | Static           | REMS   | 56.16    | 43.96       | 12.20                        | 48.96 | 73.57 | 24.61               | 73.45| 65.39  | 56.97|
+|        |         |                  | EMS    | 53.95    | 41.91       | 12.04                        | 46.84 | 71.11 | 24.27               | 71.18| 63.12  | 53.35|
+|        |         | Adaptive         | REMS   | 57.51    | 43.93       | 13.58                        | 51.41 | 76.97 | 25.56               | 76.89| 66.00  | 58.00|
+|        |         |                  | EMS    | 54.92    | 41.70       | 13.22                        | 48.88 | 73.92 | 25.04               | 74.38| 63.91  | 54.17|
+|        |         | Clear            | REMS   | 66.84    | 50.17       | 16.67                        | 55.54 | 77.86 | 22.32               | 78.97| 72.70  | 64.72|
+|        |         |                  | EMS    | 65.57    | 48.21       | 17.36                        | 53.53 | 76.49 | 22.96               | 76.40| 71.99  | 62.62|
+|        |         | Plan And Solve   | REMS   | 70.36    | 48.62       | 21.74                        | 57.14 | 76.91 | 19.77               | 80.30| 72.30  | 62.64|
+|        |         |                  | EMS    | 69.55    | 46.50       | 23.05                        | 55.20 | 75.44 | 20.24               | 77.96| 70.81  | 60.25|
+| SQL    | Schema  | zero shots       | REMS   | 49.40    | 47.41       | 1.99                         | 55.99 | 58.58 | 2.59                | 63.53| 65.20  | 45.46|
+|        |         |                  | EMS    | 47.27    | 45.27       | 2.00                         | 54.09 | 56.14 | 2.05                | 61.21| 63.12  | 42.02|
+|        |         | Static           | REMS   | 62.90    | 61.65       | 1.25                         | 72.01 | 73.67 | 1.66                | 80.96| 76.27  | 64.69|
+|        |         |                  | EMS    | 61.36    | 60.40       | 0.96                         | 70.82 | 71.93 | 1.11                | 78.58| 75.54  | 62.62|
+|        |         | Adaptive         | REMS   | 68.41    | 67.42       | 0.99                         | 73.42 | 72.80 | -0.62               | 79.94| 74.55  | 66.97|
+|        |         |                  | EMS    | 68.04    | 67.02       | 1.02                         | 73.23 | 72.16 | -1.07               | 79.83| 73.57  | 66.32|
+
 
 1. **Robustness to Counterfactual Data**
 
