@@ -1,7 +1,5 @@
 # LLM-Symbolic Integration for Robust Temporal Tabular Reasoning
 
-# Robust and Adaptive Temporal Table Reasoning with TEMPTABQA-C
-
 This repository contains the implementation and datasets associated with the paper "LLM-Symbolic Integration for Robust Temporal Tabular Reasoning." The project addresses the challenges of temporal tabular reasoning using large language models (LLMs), focusing on structured, symbolic approaches to improve performance, robustness, and scalability.
 
 ## Overview
