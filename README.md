@@ -1,172 +1,130 @@
-# LLM-Symbolic Integration for Robust Temporal Tabular Reasoning-C
+# LLM-Symbolic Integration for Robust Temporal Tabular Reasoning
+
+# Robust and Adaptive Temporal Table Reasoning with TEMPTABQA-C
 
 This repository contains the implementation and datasets associated with the paper "LLM-Symbolic Integration for Robust Temporal Tabular Reasoning." The project addresses the challenges of temporal tabular reasoning using large language models (LLMs), focusing on structured, symbolic approaches to improve performance, robustness, and scalability.
 
-Overview
+## Overview
 
 Temporal tabular question answering requires reasoning over structured data with time-dependent attributes. Traditional LLM approaches struggle with limitations such as sensitivity to table size, reliance on memorized patterns, and reduced performance on complex queries. To address these gaps, we propose:
 
-TEMPTABQA-C: A large-scale synthetic dataset designed for controlled and systematic evaluation of temporal reasoning tasks.
+1. TEMPTABQA-C: A large-scale synthetic dataset designed for controlled and systematic evaluation of temporal reasoning tasks.
+2. Symbolic Intermediate Representation: A structured framework where LLMs generate and execute SQL queries on database schemas, improving reasoning and mitigating biases.
+3. Adaptive Few-Shot Prompting: Dynamically tailored examples that enhance model performance in diverse scenarios.
 
-Symbolic Intermediate Representation: A structured framework where LLMs generate and execute SQL queries on database schemas, improving reasoning and mitigating biases.
+## TEMPTABQA-C Dataset
 
-Adaptive Few-Shot Prompting: Dynamically tailored examples that enhance model performance in diverse scenarios.
-
-TEMPTABQA-C Dataset
-
-Overview
+### Overview
 
 TEMPTABQA-C is a large-scale, semi-automatically generated dataset tailored for evaluating temporal reasoning in LLMs. It overcomes limitations of traditional human-curated datasets by allowing controlled variations in data characteristics and enabling scalable generation of diverse and challenging scenarios.
 
-Dataset Features
+### Dataset Features
 
-Controlled Evaluation: Enables systematic testing across diverse data characteristics.
+- Controlled Evaluation: Enables systematic testing across diverse data characteristics.
+- Scalability: Comprises over 200,000 questions spanning a wide range of contexts and complexities.
+- Fine-Grained Analysis: Supports benchmarking for model biases, robustness, and limitations in temporal reasoning.
 
-Scalability: Comprises over 200,000 questions spanning a wide range of contexts and complexities.
+### Dataset Composition and Splits
 
-Fine-Grained Analysis: Supports benchmarking for model biases, robustness, and limitations in temporal reasoning.
+#### Original Questions
 
-Dataset Composition and Splits
+- Table Sizes:
+  - Small Tables: Concise data representing limited records.
+  - Large Tables: Extensive datasets with higher complexity.
+- Question Complexity:
+  - Easy: Basic fact retrieval or single-step reasoning.
+  - Medium: Multi-step reasoning, calculations, or comparisons.
+  - Hard: Complex, multi-hop temporal reasoning.
 
-The dataset is divided into the following categories:
+#### Counterfactual Questions
 
-Original Questions: Questions derived directly from structured data.
+- Hypothetical questions that modify specific facts in the dataset to challenge robustness.
 
-Table Sizes:
+### Dataset Statistics
 
-Small Tables: Concise data representing limited records.
+| Category           | Examples |
+| ------------------ | -------- |
+| Original Questions | 578      |
+| Counterfactual     | 699      |
+| Small Tables       | 855      |
+| Large Tables       | 538      |
+| Easy               | 732      |
+| Medium             | 507      |
+| Hard               | 719      |
 
-Large Tables: Extensive datasets with higher complexity.
+### Dataset Creation Pipeline
 
-Question Complexity:
+1. **Extracting Temporal Information**
 
-Easy: Basic fact retrieval or single-step reasoning.
+   - Temporal data (e.g., athletes, tournaments, achievements) was extracted from Wikipedia infoboxes.
+   - Attributes like "Name," "Date of Birth," "Tournaments Played," and "Medals Won" were converted into a structured format.
 
-Medium: Multi-step reasoning, calculations, or comparisons.
+2. **Relational Database Construction**
 
-Hard: Complex, multi-hop temporal reasoning.
+   - The structured data was organized into a relational schema with the following key tables:
+     - Athlete Table: Contains unique `athlete_id` and athlete names.
+     - Personal Information Table: Captures details like birth year, month, and day, linked to `athlete_id`.
+     - Tournament Table: Stores tournament names, linked to `athlete_id`.
+     - Format Table: Represents event formats, linked to tournaments.
+     - Medal Table: Documents medals, including type (e.g., Gold), year, and location.
 
-Counterfactual Questions: Hypothetical questions that modify specific facts in the dataset to challenge robustness.
+3. **Question and Answer Generation**
 
-Dataset Statistics
+   - Questions were generated using predefined templates. Examples include:
+     - "At what age did [Athlete] win their most recent [Tournament] [Medal Type]?"
+     - "In which city did [Athlete] win their most recent [Tournament] medal?"
+   - Answers were derived using SQL-based logic to query the relational database.
+   - Counterfactual questions were generated by modifying specific attributes to create hypothetical scenarios.
 
-Category
+4. **SQL-Based Answer Generation**
 
-Examples
+   - For each question, an SQL query was generated to retrieve the correct answer from the relational database.
+   - This approach ensures consistency, scalability, and precision in dataset generation.
 
-Original Questions
+## Key Contributions
 
-578
+1. TEMPTABQA-C: A synthetic dataset enabling precise evaluation of temporal tabular reasoning tasks.
+2. Symbolic Intermediate Representation: Transforming unstructured tables into database schemas for SQL-based reasoning.
+3. Adaptive Few-Shot Prompting: Dynamically tailoring examples to improve model robustness in diverse contexts.
 
-Counterfactual
+## Experimental Setup
 
-699
+### Evaluation Metrics
 
-Small Tables
+- **Exact Match Score (EMS)**: Measures the accuracy of predicted answers against ground truth.
+- **Relaxed Exact Match Score (REMS)**: A relaxed version of EMS, tolerating minor variations.
 
-855
+### Baselines and Methods
 
-Large Tables
+1. Direct Prompting: Natural language prompts with answers directly generated by LLMs.
+2. Symbolic Intermediate Representation: LLMs generate SQL queries that are executed on the database to retrieve answers.
+3. Few-Shot Prompting:
+   - Zero-Shot: No examples provided.
+   - Non-Adaptive Few-Shot: Static examples provided for all queries.
+   - Adaptive Few-Shot: Examples dynamically selected based on query context.
 
-538
+## Results and Findings
 
-Easy
+1. **Robustness to Counterfactual Data**
 
-732
+   - SQL-based methods exhibited significantly smaller performance gaps compared to direct prompting.
+   - Adaptive few-shot prompting further improved robustness.
 
-Medium
+2. **Scalability with Table Size**
 
-507
+   - SQL methods consistently handled large tables with minimal performance degradation.
 
-Hard
+3. **Handling Question Complexity**
 
-719
+   - SQL-based reasoning outperformed direct prompting across easy, medium, and hard questions.
 
-Dataset Creation Pipeline
-
-Extracting Temporal Information:
-
-Temporal data (e.g., athletes, tournaments, achievements) was extracted from Wikipedia infoboxes.
-
-Attributes like "Name," "Date of Birth," "Tournaments Played," and "Medals Won" were converted into a structured format.
-
-Relational Database Construction:
-
-The structured data was organized into a relational schema with the following key tables:
-
-Athlete Table: Contains unique athlete_id and athlete names.
-
-Personal Information Table: Captures details like birth year, month, and day, linked to athlete_id.
-
-Tournament Table: Stores tournament names, linked to athlete_id.
-
-Format Table: Represents event formats, linked to tournaments.
-
-Medal Table: Documents medals, including type (e.g., Gold), year, and location.
-
-Question and Answer Generation:
-
-Questions were generated using predefined templates. Examples include:
-
-"At what age did [Athlete] win their most recent [Tournament] [Medal Type]?"
-
-"In which city did [Athlete] win their most recent [Tournament] medal?"
-
-Answers were derived using SQL-based logic to query the relational database.
-
-Counterfactual questions were generated by modifying specific attributes to create hypothetical scenarios.
-
-SQL-Based Answer Generation:
-
-For each question, an SQL query was generated to retrieve the correct answer from the relational database.
-
-This approach ensures consistency, scalability, and precision in dataset generation.
-
-Key Contributions
-
-TEMPTABQA-C: A synthetic dataset enabling precise evaluation of temporal tabular reasoning tasks.
-
-Symbolic Intermediate Representation: Transforming unstructured tables into database schemas for SQL-based reasoning.
-
-Adaptive Few-Shot Prompting: Dynamically tailoring examples to improve model robustness in diverse contexts.
-
-Experimental Setup
-
-Evaluation Metrics
-
-Exact Match Score (EMS): Measures the accuracy of predicted answers against ground truth.
-
-Relaxed Exact Match Score (REMS): A relaxed version of EMS, tolerating minor variations.
-
-Baselines and Methods
-
-Direct Prompting: Natural language prompts with answers directly generated by LLMs.
-
-Symbolic Intermediate Representation: LLMs generate SQL queries that are executed on the database to retrieve answers.
-
-Few-Shot Prompting:
-
-Zero-Shot: No examples provided.
-
-Non-Adaptive Few-Shot: Static examples provided for all queries.
-
-Adaptive Few-Shot: Examples dynamically selected based on query context.
-
-Results and Findings
-
-Robustness to Counterfactual Data:
-
-SQL-based methods exhibited significantly smaller performance gaps compared to direct prompting.
-
-Adaptive few-shot prompting further improved robustness.
-
-Scalability with Table Size:
-
-SQL methods consistently handled large tables with minimal performance degradation.
-
-Handling Question Complexity:
-
-SQL-based reasoning outperformed direct prompting across easy, medium, and hard questions.
-
-Repository Structure
-
+## Repository Structure
+
+- `Test_Dataset_with_Splits/`: Contains the TEMPTABQA-C dataset with the 7 splits.
+- `Dataset_Creation/`: Stores files required to make the dataset
+    - `Data_Extraction/`: Extracts data from wikipidea.
+    - `Database_Generation/`: creates the database and inputs the data into the database.
+    - `Questions/`: Stores the Question Templates used for the Questions in the dataset.
+    - `Questions_Answers_with_SQL_Logic/`: Stores the SQL code and sample data required to generate the answers of questions of the dataset.
+- `Prompts/`: Prompts the models were evaluated on.
+- `Evaluation_Metrics/`: Code to generate the REMS and EMS scores.
