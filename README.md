@@ -31,12 +31,12 @@ TEMPTABQA-C is a large-scale, semi-automatically generated dataset tailored for 
   - Large Tables: Extensive datasets with higher complexity.
 - Question Complexity:
   - Easy: Basic fact retrieval or single-step reasoning.
-  - Medium: Multi-step reasoning, calculations, or comparisons.
+  - Medium: Multi-step temporal reasoning, calculations, or comparisons.
   - Hard: Complex, multi-hop temporal reasoning.
 
 #### Counterfactual Questions
 
-- Hypothetical questions that modify specific facts in the dataset to challenge robustness.
+-  Questions that modify specific facts in the dataset to challenge robustness.
 
 ### Dataset Statistics
 
