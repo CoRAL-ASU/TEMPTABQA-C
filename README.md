@@ -203,3 +203,20 @@ TEMPTABQA-C is a large-scale, semi-automatically generated dataset tailored for 
     - `Questions_Answers_with_SQL_Logic/`: Stores the SQL code and sample data required to generate the answers of questions of the dataset.
 - `Prompts/`: Prompts the models were evaluated on.
 - `Evaluation_Metrics/`: Code to generate the REMS and EMS scores.
+
+## Citation
+```bibtex
+@inproceedings{kulkarni-etal-2025-llm,
+  title     = "LLM-Symbolic Integration for Robust Temporal Tabular Reasoning",
+  author    = "Kulkarni, Atharv  and
+               Dixit, Kushagra  and
+               Srikumar, Vivek  and
+               Roth, Dan  and
+               Gupta, Vivek",
+  booktitle = "Findings of the Association for Computational Linguistics: ACL 2025",
+  month     = aug,
+  year      = "2025",
+  address   = "Vienna, Austria",
+  publisher = "Association for Computational Linguistics",
+  abstract  = "Temporal tabular question answering presents a significant challenge for Large Language Models (LLMs), requiring robust reasoning over structured data, a task where traditional prompting methods often fall short. These methods face challenges such as memorization, sensitivity to table size, and reduced performance on complex queries. To overcome these limitations, we introduce TempTabQA-C, a synthetic dataset designed for systematic and controlled evaluations, alongside a symbolic intermediate representation that transforms tables into database schemas. This structured approach allows LLMs to generate and execute SQL queries, enhancing generalization and mitigating biases. By incorporating adaptive few-shot prompting with contextually tailored examples, our method achieves superior robustness, scalability, and performance. Experimental results consistently highlight improvements across key challenges, setting a new benchmark for robust temporal reasoning with LLMs."
+}
